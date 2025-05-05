@@ -1,10 +1,5 @@
 import { Outlet } from "react-router";
-import { AuthProvider } from "../app/providers/AuthProvider";
 
-const Layout = () => (
-  <AuthProvider>
-    <Outlet />
-  </AuthProvider>
-);
+const Layout = () => <Outlet />;
 
 export default Layout;

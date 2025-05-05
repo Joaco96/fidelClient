@@ -1,5 +1,7 @@
 import { FormEvent, useState } from "react";
 import { useAuth } from "../app/providers/AuthProvider";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
 
 export default function Login() {
   const { login } = useAuth();
@@ -7,6 +9,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -14,15 +17,19 @@ export default function Login() {
     setLoading(true);
 
     try {
-      await login({ email, password });
+      const response = await login({ email, password });
+      if (response.success) {
+        toast.success(response.data.message)
+        navigate("/dashboard")
+      };
     } catch (err: unknown) {
-        if (err instanceof Error) {
-            setError(err.message);
-          } else if (typeof err === "string") {
-            setError(err);
-          } else {
-            setError("Error desconocido al iniciar sesión");
-          }
+      if (err instanceof Error) {
+        setError(err.message);
+      } else if (typeof err === "string") {
+        setError(err);
+      } else {
+        setError("Error desconocido al iniciar sesión");
+      }
       setLoading(false);
     }
   };

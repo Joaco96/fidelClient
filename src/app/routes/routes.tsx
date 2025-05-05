@@ -1,7 +1,9 @@
 import { createBrowserRouter } from "react-router";
 import Login from "../../pages/Login";
-import { AuthProvider } from "../providers/AuthProvider";
+import Dashboard from "../../pages/Dashboard";
 import Layout from "../../pages/Layout";
+import Register from "../../pages/Register";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -9,11 +11,19 @@ export const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: "/",
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/dashboard",
         element: (
-          <AuthProvider>
-            <Login />
-          </AuthProvider>
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
         ),
       },
       { path: "*", element: <h1>Error pagina no encontrada</h1> },

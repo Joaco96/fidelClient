@@ -4,13 +4,13 @@
 
 ## **🔹 EPIC 1: Registro y Autenticación**  
 
-### 📌 **HU-01: Registro de Usuario**
+### 📌 **HU-01: Registro de Usuario** [X]
 **Como** visitante, **quiero** registrarme en la plataforma con mi correo o redes sociales, **para** poder acceder al programa de fidelización.  
 **Criterios de Aceptación:**  
 - El usuario puede registrarse con correo/contraseña o con Google/Facebook mediante Auth0.
 - Se debe validar que el correo no esté duplicado.  
 
-### 📌 **HU-02: Inicio de Sesión**
+### 📌 **HU-02: Inicio de Sesión** [X]
 **Como** usuario registrado, **quiero** iniciar sesión en la aplicación, **para** acceder a mis puntos y beneficios.  
 **Criterios de Aceptación:**  
 - El usuario debe poder iniciar sesión con correo/contraseña.  
@@ -67,7 +67,7 @@
 
 ## **🔹 EPIC 4: Canje de Recompensas**  
 
-### 📌 **HU-09: Explorar Recompensas Disponibles**
+### 📌 **HU-09: Explorar Recompensas Disponibles** [X]
 **Como** usuario, **quiero** ver el catálogo de beneficios y experiencias disponibles, **para** decidir en qué gastar mis puntos.  
 **Criterios de Aceptación:**  
 - Se muestra una lista de recompensas con su imagen, descripción y costo en puntos.  
@@ -123,6 +123,3 @@
 **Criterios de Aceptación:**  
 - Se pueden asignar roles de usuario normal, empleado y administrador.
 - Los empleados solo pueden validar compras y canjes.
-
-- Optimizar el llamado de getRedemptions con QR si trae problemas.
-- Filtros de texto parcial, rango de fechas y rango de numeros

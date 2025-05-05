@@ -9,7 +9,6 @@ import { authService } from "../../shared/api/authService";
 import { AxiosError } from "axios";
 import { ApiResponse } from "../../entitites/apiResponse";
 import axiosClient from "../../shared/api/axiosClient";
-import { useNavigate } from "react-router";
 import { setItem } from "../../shared/utils/localStorage/saveToLocalStorage";
 import { removeItem } from "../../shared/utils/localStorage/deleteFromLocalStorage";
 import { getItem } from "../../shared/utils/localStorage/getFromLocalStorage";
@@ -21,7 +20,6 @@ const AuthContext = createContext<AuthContextType | null>(null);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   const setAuthToken = (token: string | null) => {
     if (token) {
@@ -36,11 +34,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const checkAuth = async () => {
       try {
         const token = getItem<string>("token");
-        console.log(token)
         if (token !== null) {
           setToken(token ?? null);
           setAuthToken(token ?? null);
-          navigate("/dashboard");
         }
       } catch (error) {
         console.error(error);
@@ -52,15 +48,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     checkAuth();
   }, []);
 
-  const login = async (credentials: { email: string; password: string }) => {
+  const login = async (credentials: { email: string; password: string }): Promise<ApiResponse<{message: string, token: string}>> => {
     try {
-      const { data } = await authService.login(credentials);
-      setAuthToken(data?.token ?? null);
-      setToken(data?.token ?? null);
-      if (data?.token !== null) {
-        setItem<string | null>("token", data?.token ?? null);
+      const response = await authService.login(credentials);
+      setAuthToken(response?.data?.token ?? null);
+      setToken(response?.data?.token ?? null);
+      if (response?.data?.token !== null) {
+        setItem<string | null>("token", response?.data?.token ?? null);
       }
-      navigate("/dashboard");
+      return response
     } catch (error) {
       console.error(error);
       throw (
@@ -70,25 +66,30 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const logout = async () => {
+  const logout = () => {
+    setLoading(true);
     try {
-      removeItem("token");
-      setAuthToken(null);
-      setToken(null);
-      navigate("/login");
+      setTimeout(() => {
+        removeItem("token");
+        setAuthToken(null);
+        setToken(null);
+        setLoading(false);
+      }, 1000);
     } catch (error) {
       console.error("No se pudo cerrar sesión", error);
+      setLoading(false);
     }
   };
 
   return (
     <AuthContext.Provider value={{ token, loading, login, logout }}>
-      {children}
+      {!loading ? children : null}
     </AuthContext.Provider>
   );
 };
 
 // Hook para usar el contexto de autenticación
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (!context) {
