@@ -13,12 +13,15 @@ import { setItem } from "../../shared/utils/localStorage/saveToLocalStorage";
 import { removeItem } from "../../shared/utils/localStorage/deleteFromLocalStorage";
 import { getItem } from "../../shared/utils/localStorage/getFromLocalStorage";
 import { AuthContextType } from "../../shared/types/AuthContextTypes";
+import { JwtPayload } from "../../shared/types/jwtPayload";
+import { decodeJWT } from "../../shared/utils/localStorage/decodeJwt";
 
 // Creamos el contexto
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
+  const [userData, setUserData] = useState<JwtPayload | null>(null);
   const [loading, setLoading] = useState(true);
 
   const setAuthToken = (token: string | null) => {
@@ -28,6 +31,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       delete axiosClient.defaults.headers.common["Authorization"];
     }
   };
+
+  useEffect(() => {
+    if (token) {
+      setUserData(decodeJWT<JwtPayload>(token));
+    } else {
+      setUserData(null);
+    }
+  }, [token]);
 
   // Verifica si hay sesión activa al cargar la app
   useEffect(() => {
@@ -48,7 +59,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     checkAuth();
   }, []);
 
-  const login = async (credentials: { email: string; password: string }): Promise<ApiResponse<{message: string, token: string}>> => {
+  const login = async (credentials: {
+    email: string;
+    password: string;
+  }): Promise<ApiResponse<{ message: string; token: string }>> => {
     try {
       const response = await authService.login(credentials);
       setAuthToken(response?.data?.token ?? null);
@@ -56,11 +70,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (response?.data?.token !== null) {
         setItem<string | null>("token", response?.data?.token ?? null);
       }
-      return response
+      return response;
     } catch (error) {
       console.error(error);
       throw (
-        ((error as AxiosError).response?.data as ApiResponse).message ||
+        ((error as AxiosError).response?.data as ApiResponse).error?.message ||
         "No se pudo iniciar sesión"
       );
     }
@@ -74,7 +88,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setAuthToken(null);
         setToken(null);
         setLoading(false);
-      }, 1000);
+      }, 600);
     } catch (error) {
       console.error("No se pudo cerrar sesión", error);
       setLoading(false);
@@ -82,7 +96,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, loading, login, logout }}>
+    <AuthContext.Provider value={{ token, loading, login, logout, userData }}>
       {!loading ? children : null}
     </AuthContext.Provider>
   );

@@ -28,19 +28,16 @@ const Dashboard = () => {
 
   return (
     <>
-      <h1 className="pl-6  mb-4">Beneficios</h1>
+      <h1 className="mb-4">Beneficios disponibles</h1>
       {response?.data.map(
         (item: {
-          id: Key | null | undefined;
+          id: string;
           name: string;
           points_cost: number;
           stock_balance: number;
           description: string;
         }) => (
-          <div
-            className="w-[400px] m-6 p-4 border-1 border-white"
-            key={item.id}
-          >
+          <div className="w-[400px] p-4 border-1 border-white" key={item.id}>
             <h2 className="font-bold text-xl pb-2">{item.name}</h2>
             <p>{item.description}</p>
             <h4>Costo: {item.points_cost} puntos</h4>
@@ -51,13 +48,13 @@ const Dashboard = () => {
       <button
         onClick={getRewards}
         disabled={isPending}
-        className="ml-4 mb-4 w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 disabled:opacity-50"
+        className="mb-4 w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 disabled:opacity-50"
       >
         {isPending ? "Getting Rewards..." : "Get Rewards"}
       </button>
       <button
         onClick={logout}
-        className="ml-4 w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 disabled:opacity-50"
+        className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 disabled:opacity-50"
       >
         Logout
       </button>

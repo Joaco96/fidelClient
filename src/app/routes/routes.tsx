@@ -1,32 +1,190 @@
 import { createBrowserRouter } from "react-router";
 import Login from "../../pages/Login";
 import Dashboard from "../../pages/Dashboard";
-import Layout from "../../pages/Layout";
 import Register from "../../pages/Register";
 import { ProtectedRoute } from "./ProtectedRoute";
+import Landing from "../../pages/Landing";
+import Admin from "../../pages/Admin";
+import Control from "../../pages/Control";
+import Rewards from "../../pages/Rewards";
+import Users from "../../pages/Users";
+import Profile from "../../pages/Profile";
+import ErrorPage from "../../pages/ErrorPage";
+import { RoleIds } from "../../entitites/Role";
+import NewStore from "../../pages/NewStore";
+import NewReward from "../../pages/NewReward";
+import EditReward from "../../pages/EditReward";
+import RewardCheckout from "../../pages/RewardCheckout";
+import RedemptionSuccess from "../../pages/RedemptionSuccess";
+import Redemption from "../../pages/Redemption";
+import UserDetail from "../../pages/UserDetail";
+import Layout from "../../shared/components/layout/Layout";
 
 export const router = createBrowserRouter([
   {
     path: "/",
+    element: <Landing />,
+  },
+  {
+    path: "/login",
+    element: (
+      <ProtectedRoute>
+        <Login />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/app",
     element: <Layout />,
     children: [
       {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/register",
-        element: <Register />,
-      },
-      {
-        path: "/dashboard",
+        path: "dashboard",
         element: (
           <ProtectedRoute>
             <Dashboard />
           </ProtectedRoute>
         ),
       },
-      { path: "*", element: <h1>Error pagina no encontrada</h1> },
+      {
+        path: "admin",
+        element: (
+          <ProtectedRoute minimumNeededRole={RoleIds.EMPLOYEE}>
+            <Admin />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "profile",
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "users",
+        children: [
+          {
+            index: true,
+            element: (
+              <ProtectedRoute minimumNeededRole={RoleIds.ADMIN}>
+                <Users />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: ":user_id",
+            element: (
+              <ProtectedRoute minimumNeededRole={RoleIds.ADMIN}>
+                <UserDetail />
+              </ProtectedRoute>
+            ),
+          },
+        ],
+      },
+      {
+        path: "rewards",
+        children: [
+          {
+            index: true,
+            element: (
+              <ProtectedRoute>
+                <Rewards />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "new",
+            element: (
+              <ProtectedRoute minimumNeededRole={RoleIds.ADMIN}>
+                <NewReward />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "edit/:reward_id",
+            element: (
+              <ProtectedRoute minimumNeededRole={RoleIds.ADMIN}>
+                <EditReward />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "checkout/:reward_id",
+            element: (
+              <ProtectedRoute>
+                <RewardCheckout />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "checkout/result/:redemption_id",
+            element: (
+              <ProtectedRoute>
+                <RedemptionSuccess />
+              </ProtectedRoute>
+            ),
+          },
+        ],
+      },
+      {
+        path: "redemptions",
+        children: [
+          {
+            index: true,
+            element: <ErrorPage />,
+          },
+          {
+            path: ":redemption_id",
+            element: (
+              <ProtectedRoute>
+                <Redemption />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "control",
+            element: (
+              <ProtectedRoute minimumNeededRole={RoleIds.EMPLOYEE}>
+                <Control />
+              </ProtectedRoute>
+            ),
+          },
+        ],
+      },
+      {
+        path: "stores",
+        children: [
+          {
+            index: true,
+            element: <ErrorPage />,
+          },
+          {
+            path: "new",
+            element: (
+              <ProtectedRoute minimumNeededRole={RoleIds.ADMIN}>
+                <NewStore />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "edit/:store_id",
+            element: (
+              <ProtectedRoute minimumNeededRole={RoleIds.ADMIN}>
+                <NewStore />
+              </ProtectedRoute>
+            ),
+          },
+        ],
+      },
     ],
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
   },
 ]);
