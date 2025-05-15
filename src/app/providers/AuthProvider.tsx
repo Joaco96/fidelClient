@@ -14,7 +14,7 @@ import { removeItem } from "../../shared/utils/localStorage/deleteFromLocalStora
 import { getItem } from "../../shared/utils/localStorage/getFromLocalStorage";
 import { AuthContextType } from "../../shared/types/AuthContextTypes";
 import { JwtPayload } from "../../shared/types/jwtPayload";
-import { decodeJWT } from "../../shared/utils/localStorage/decodeJwt";
+import { decodeJWT } from "../../shared/utils/decodeJwt";
 
 // Creamos el contexto
 const AuthContext = createContext<AuthContextType | null>(null);

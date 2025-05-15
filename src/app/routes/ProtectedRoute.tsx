@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router";
 import { useAuth } from "../providers/AuthProvider";
 import { useEffect, useState } from "react";
 import { RoleIds } from "../../entitites/Role";
-import { decodeJWT } from "../../shared/utils/localStorage/decodeJwt";
+import { decodeJWT } from "../../shared/utils/decodeJwt";
 import { JwtPayload } from "../../shared/types/jwtPayload";
 import ErrorPage from "../../pages/ErrorPage";
 

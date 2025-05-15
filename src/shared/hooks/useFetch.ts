@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { ApiResponse } from "../../entitites/apiResponse";
 
-function useFetch<T>({ service }: { service: () => Promise<ApiResponse<T>> }) {
+function useFetch<T>({ service, fetchOnRender = true }: { service?: () => Promise<ApiResponse<T>>, fetchOnRender?: boolean }) {
   const [response, setResponse] = useState<T | null>(null);
   const [isPending, setIsPending] = useState<boolean>(false);
   const [error, setError] = useState<any | null>(null);
 
   useEffect(() => {
-    getData();
+    if (fetchOnRender) getData();
   }, []);
 
   const getData = async () => {
-    if (!isPending) {
+    if (!isPending && service) {
       setIsPending(true);
       setError(null);
       try {
@@ -19,17 +19,18 @@ function useFetch<T>({ service }: { service: () => Promise<ApiResponse<T>> }) {
         setResponse(data);
       } catch (error) {
         console.error(error);
-        setError(error)
+        setError(error);
       }
       setIsPending(false);
     }
   };
 
   return {
-    response, 
+    response,
     isPending,
-    error
+    error,
+    getData
   };
-};
+}
 
 export default useFetch;

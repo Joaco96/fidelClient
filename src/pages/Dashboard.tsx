@@ -1,63 +1,47 @@
-import { AxiosError } from "axios";
-import { ApiResponse } from "../entitites/apiResponse";
-import axiosClient from "../shared/api/axiosClient";
-import { Key, useState } from "react";
-import { useAuth } from "../app/providers/AuthProvider";
+import { Link } from "react-router";
+import { rewardService } from "../shared/api/rewardService";
+import useFetch from "../shared/hooks/useFetch";
+import Hero from "../shared/components/dashboard/Hero";
+import FeaturedRewards from "../shared/components/dashboard/FeaturedRewards";
+import RecentActivity from "../shared/components/dashboard/RecentActivity";
+import useActivities from "../shared/hooks/useActivities";
+import { formatDate } from "../shared/utils/formatDate";
+
+const MAX_RECENT_ACTIVITIES = 3;
 
 const Dashboard = () => {
-  const [response, setResponse] = useState<ApiResponse | null>(null);
-  const [isPending, setIsPending] = useState<boolean>(false);
-  const { logout } = useAuth();
+  const { response: rewardResponse } = useFetch({
+    service: rewardService.getRewards,
+  });
+  const rewardsQuantity = rewardResponse?.length;
+  const { sortedActivities } = useActivities();
 
-  const getRewards = async () => {
-    if (!isPending) {
-      setIsPending(true);
-      try {
-        const { data } = await axiosClient.get("/rewards");
-        setResponse(data);
-      } catch (error) {
-        console.error(error);
-        throw (
-          ((error as AxiosError).response?.data as ApiResponse).message ||
-          "No se pudo obtener beneficios"
-        );
-      }
-      setIsPending(false);
-    }
-  };
+  const formattedDate = sortedActivities.length ? formatDate(sortedActivities[0]?.date) : "-";
 
   return (
     <>
-      <h1 className="mb-4">Beneficios disponibles</h1>
-      {response?.data.map(
-        (item: {
-          id: string;
-          name: string;
-          points_cost: number;
-          stock_balance: number;
-          description: string;
-        }) => (
-          <div className="w-[400px] p-4 border-1 border-white" key={item.id}>
-            <h2 className="font-bold text-xl pb-2">{item.name}</h2>
-            <p>{item.description}</p>
-            <h4>Costo: {item.points_cost} puntos</h4>
-            <h5>Stock: {item.stock_balance} beneficios</h5>
-          </div>
-        )
-      )}
-      <button
-        onClick={getRewards}
-        disabled={isPending}
-        className="mb-4 w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 disabled:opacity-50"
-      >
-        {isPending ? "Getting Rewards..." : "Get Rewards"}
-      </button>
-      <button
-        onClick={logout}
-        className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 disabled:opacity-50"
-      >
-        Logout
-      </button>
+      <Hero />
+      <div className="flex justify-between items-center gap-6 mb-10 max-w-[70vw] m-auto">
+        <Link to="/app/profile" className="w-1/2 p-3 border-1 border-white">
+          <h4>Historial de puntos</h4>
+          <p>Ver tus transacciones recientes</p>
+          <p>
+            Ultima actividad:
+            <span> {formattedDate}</span>
+          </p>
+        </Link>
+        <Link to="/app/rewards" className="w-1/2 p-3 border-1 border-white">
+          <h4>Reclamar beneficios</h4>
+          <p>Ver beneficios disponibles</p>
+          <p>
+            <span>{rewardsQuantity} </span>nuevos disponibles
+          </p>
+        </Link>
+      </div>
+      <FeaturedRewards rewards={rewardResponse} />
+      <RecentActivity
+        activities={sortedActivities.slice(0, MAX_RECENT_ACTIVITIES)}
+      />
     </>
   );
 };

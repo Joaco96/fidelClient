@@ -6,12 +6,16 @@ const Layout = () => {
   const { logout } = useAuth();
 
   return (
-    <>
-      <div className="w-[100dvw] flex items-center justify-between py-3 px-8 bg-amber-950 text-white">
+    <div className="w-full">
+      <div className="w-full flex items-center justify-between py-3 px-8 bg-white text-white fixed z-2 h-[70px]">
         <NavLink to="/app/dashboard">Navbar</NavLink>
         <div className="flex items-center gap-4">
           <NavLink to="/app/profile">
-            {({isActive}) => <span className={ isActive ? "text-amber-500" : "text-white" }>Profile</span>}
+            {({ isActive }) => (
+              <span className={isActive ? "text-amber-500" : "text-white"}>
+                Profile
+              </span>
+            )}
           </NavLink>
           <button
             onClick={logout}
@@ -21,10 +25,8 @@ const Layout = () => {
           </button>
         </div>
       </div>
-      <div className="max-w-[70dvw] m-auto py-8">
-        {Outlet({}) ? <Outlet /> : <ErrorPage />}
-      </div>
-    </>
+      <div className="top-[70px] relative z-0">{Outlet({}) ? <Outlet /> : <ErrorPage />}</div>
+    </div>
   );
 };
 
