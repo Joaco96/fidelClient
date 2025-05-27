@@ -10,7 +10,7 @@ const Users = () => {
       {response ? response.map(user => {
         return <>
             <div className="p-2 my-3 border-amber-500 border-1 rounded-lg">
-                <p>DNI: {user.id}</p>
+                <p>ID: {user.id}</p>
                 <h3 className="font-bold text-lg uppercase">{user.name}</h3>
                 <p>DNI: {user.dni}</p>
                 <h5>EMAIL: {user.email}</h5>

@@ -1,4 +1,4 @@
-const options: Intl.DateTimeFormatOptions = {
+export const ActivityOptions: Intl.DateTimeFormatOptions = {
   weekday: "short",
   year: "numeric",
   month: "long",
@@ -7,7 +7,14 @@ const options: Intl.DateTimeFormatOptions = {
   minute: "2-digit",
 };
 
-export function formatDate(date: Date) {
-  console.log(date)
-  return new Date(date).toLocaleTimeString("es-GB", options);
+export const ProfileOptions: Intl.DateTimeFormatOptions = {
+  year: "numeric",
+  month: "long",
+};
+
+export function formatDate(date: Date, options: Intl.DateTimeFormatOptions) {
+  if (!options.hour && !options.minute) return new Date(date).toLocaleString("es-GB", options);
+  else {
+    return new Date(date).toLocaleTimeString("es-GB", options)
+  }
 }

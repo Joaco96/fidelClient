@@ -16,7 +16,6 @@ const useActivities = () => {
       ? () => redemptionService.getRedemptionsByUserId(userData.userId)
       : undefined,
   });
-
   const ticketsActivity: Activity[] | undefined = tickets?.map((ticket) => {
     return {
       id: ticket.id,
@@ -50,7 +49,9 @@ const useActivities = () => {
   });
 
   return {
-    sortedActivities
+    sortedActivities,
+    tickets,
+    redemptions,
   };
 };
 

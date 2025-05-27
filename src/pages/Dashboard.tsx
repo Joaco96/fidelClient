@@ -1,11 +1,11 @@
 import { Link } from "react-router";
 import { rewardService } from "../shared/api/rewardService";
 import useFetch from "../shared/hooks/useFetch";
-import Hero from "../shared/components/dashboard/Hero";
+import DashboardHero from "../shared/components/dashboard/DashboardHero";
 import FeaturedRewards from "../shared/components/dashboard/FeaturedRewards";
 import RecentActivity from "../shared/components/dashboard/RecentActivity";
 import useActivities from "../shared/hooks/useActivities";
-import { formatDate } from "../shared/utils/formatDate";
+import { ActivityOptions, formatDate } from "../shared/utils/formatDate";
 
 const MAX_RECENT_ACTIVITIES = 3;
 
@@ -16,11 +16,11 @@ const Dashboard = () => {
   const rewardsQuantity = rewardResponse?.length;
   const { sortedActivities } = useActivities();
 
-  const formattedDate = sortedActivities.length ? formatDate(sortedActivities[0]?.date) : "-";
+  const formattedDate = sortedActivities.length ? formatDate(sortedActivities[0]?.date, ActivityOptions) : "-";
 
   return (
     <>
-      <Hero />
+      <DashboardHero />
       <div className="flex justify-between items-center gap-6 mb-10 max-w-[70vw] m-auto">
         <Link to="/app/profile" className="w-1/2 p-3 border-1 border-white">
           <h4>Historial de puntos</h4>
