@@ -23,7 +23,7 @@ const Dashboard = () => {
       <DashboardHero />
       <div className="flex justify-between items-center gap-6 mb-10 max-w-[70vw] m-auto">
         <Link to="/app/profile" className="w-1/2 p-3 border-1 border-white">
-          <h4>Historial de puntos</h4>
+          <h4 className="">Historial de puntos</h4>
           <p>Ver tus transacciones recientes</p>
           <p>
             Ultima actividad:
@@ -34,7 +34,7 @@ const Dashboard = () => {
           <h4>Reclamar beneficios</h4>
           <p>Ver beneficios disponibles</p>
           <p>
-            <span>{rewardsQuantity} </span>nuevos disponibles
+            <span>{rewardsQuantity ? rewardsQuantity : "-"} </span>nuevos disponibles
           </p>
         </Link>
       </div>

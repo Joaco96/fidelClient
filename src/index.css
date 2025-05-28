@@ -1,7 +1,35 @@
+@font-face {
+	font-family: 'Epilogue-Regular';
+	src: url(assets/fonts/Epilogue-Regular.ttf);
+	text-rendering: optimizeLegibility;
+}
+@font-face {
+	font-family: 'Epilogue-Bold';
+	src: url(assets/fonts/Epilogue-Bold.ttf);
+	text-rendering: optimizeLegibility;
+}
+@font-face {
+	font-family: 'Epilogue-Medium';
+	src: url(assets/fonts/Epilogue-Medium.ttf);
+	text-rendering: optimizeLegibility;
+}
+@font-face {
+	font-family: 'Epilogue-SemiBold';
+	src: url(assets/fonts/Epilogue-SemiBold.ttf);
+	text-rendering: optimizeLegibility;
+}
+
 @import "tailwindcss";
 
+@theme {
+  --font-epiReg: Epilogue-Regular, "sans-serif";
+  --font-epiBold: Epilogue-Bold, "sans-serif";
+  --font-epiMed: Epilogue-Medium, "sans-serif";
+  --font-epiSBold: Epilogue-SemiBold, "sans-serif";
+}
+
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -23,22 +51,6 @@ body {
   margin: 0;
   display: flex;
   min-height: 100dvh;
-}
-
-button, a {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-
-button:hover, a:hover {
-  border-color: #646cff;
 }
 
 button:focus,

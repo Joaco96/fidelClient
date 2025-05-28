@@ -10,12 +10,12 @@ const ProfileHero = ({ userData }: { userData: JwtPayload | null }) => {
       <div className="flex justify-between items-center">
         <div className="flex items-center justify-center gap-6">
           <div className="bg-[#000] rounded-full w-24 h-24 flex justify-center items-center font-bold text-5xl">
-            <span className="pb-1">
+            <span className="font-epiBold pt-2">
               {userData?.name.charAt(0).toUpperCase()}
             </span>
           </div>
           <div className="flex flex-col justify-between items-start h-full gap-1">
-            <h3 className="text-3xl font-medium pb-1">{userName}</h3>
+            <h3 className="text-3xl font-epiBold">{userName}</h3>
             <p>
               Miembro desde{" "}
               {userData?.createdAt

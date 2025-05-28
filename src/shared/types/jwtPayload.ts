@@ -3,5 +3,6 @@ export interface JwtPayload {
   role: number;
   name: string;
   email: string;
+  dni: string,
   createdAt: Date;
 }

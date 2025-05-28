@@ -11,8 +11,8 @@ const RecentActivity = ({
 }) => {
   return (
     <>
-      <div className="flex justify-between items-center max-w-[70vw] w-full m-auto mb-4">
-        <h1 className="text-2xl">
+      <div className="flex justify-between items-center max-w-[70vw] w-full m-auto mb-2">
+        <h1 className="text-2xl font-epiBold">
           {profile ? "Historial de puntos" : "Actividad reciente"}
         </h1>
         {profile ? (
@@ -20,7 +20,7 @@ const RecentActivity = ({
         ) : (
           <Link
             to="/app/profile"
-            className="h-[45px] text-white py-2 rounded hover:bg-indigo-700"
+            className="h-[45px] text-white py-2"
           >
             Ver todos
           </Link>

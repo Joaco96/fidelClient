@@ -5,11 +5,11 @@ const FeaturedRewards = ({ rewards }: { rewards: Reward[] | null }) => {
 
   return (
     <>
-      <div className="flex justify-between items-center max-w-[70dvw] m-auto mb-4">
-        <h1 className="text-2xl">Beneficios disponibles</h1>
+      <div className="flex justify-between items-center max-w-[70dvw] m-auto mb-2">
+        <h1 className="text-2xl font-epiBold">Beneficios disponibles</h1>
         <Link
           to="/app/rewards"
-          className="h-[45px] text-white py-2 rounded hover:bg-indigo-700"
+          className="h-[45px] text-white py-2"
         >
           Ver todos
         </Link>
