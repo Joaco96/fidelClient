@@ -6,6 +6,7 @@ import FeaturedRewards from "../shared/components/dashboard/FeaturedRewards";
 import RecentActivity from "../shared/components/dashboard/RecentActivity";
 import useActivities from "../shared/hooks/useActivities";
 import { ActivityOptions, formatDate } from "../shared/utils/formatDate";
+import { useMemo } from "react";
 
 const MAX_RECENT_ACTIVITIES = 3;
 
@@ -16,32 +17,50 @@ const Dashboard = () => {
   const rewardsQuantity = rewardResponse?.length;
   const { sortedActivities } = useActivities();
 
-  const formattedDate = sortedActivities.length ? formatDate(sortedActivities[0]?.date, ActivityOptions) : "-";
+  const formattedDate = sortedActivities.length
+    ? formatDate(sortedActivities[0]?.date, ActivityOptions)
+    : "-";
 
+  const featuredRewards = useMemo(
+    () =>
+      rewardResponse
+        ?.sort((a, b) => (a.points_cost < b.points_cost ? 1 : -1))
+        .slice(0, 2),
+    [rewardResponse]
+  );
   return (
     <>
       <DashboardHero />
-      <div className="flex justify-between items-center gap-6 mb-10 max-w-[70vw] m-auto">
-        <Link to="/app/profile" className="w-1/2 p-3 border-1 border-white">
-          <h4 className="">Historial de puntos</h4>
-          <p>Ver tus transacciones recientes</p>
-          <p>
-            Ultima actividad:
-            <span> {formattedDate}</span>
-          </p>
-        </Link>
-        <Link to="/app/rewards" className="w-1/2 p-3 border-1 border-white">
-          <h4>Reclamar beneficios</h4>
-          <p>Ver beneficios disponibles</p>
-          <p>
-            <span>{rewardsQuantity ? rewardsQuantity : "-"} </span>nuevos disponibles
-          </p>
-        </Link>
+      <div className="flex flex-col gap-12 max-w-[70vw] m-auto">
+        <div className="flex justify-between items-center w-full gap-6">
+          <Link
+            to="/app/profile"
+            className="w-1/2 p-3 border-1 border-white rounded-lg"
+          >
+            <h4 className="">Historial de puntos</h4>
+            <p>Ver tus transacciones recientes</p>
+            <p>
+              Ultima actividad:
+              <span> {formattedDate}</span>
+            </p>
+          </Link>
+          <Link
+            to="/app/rewards"
+            className="w-1/2 p-3 border-1 border-white rounded-lg"
+          >
+            <h4>Reclamar beneficios</h4>
+            <p>Ver beneficios destacados</p>
+            <p>
+              <span>{rewardsQuantity ? rewardsQuantity : "-"} </span>nuevos
+              disponibles
+            </p>
+          </Link>
+        </div>
+        <FeaturedRewards rewards={featuredRewards ?? null} />
+        <RecentActivity
+          activities={sortedActivities.slice(0, MAX_RECENT_ACTIVITIES)}
+        />
       </div>
-      <FeaturedRewards rewards={rewardResponse} />
-      <RecentActivity
-        activities={sortedActivities.slice(0, MAX_RECENT_ACTIVITIES)}
-      />
     </>
   );
 };

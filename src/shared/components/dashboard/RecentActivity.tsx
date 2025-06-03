@@ -10,8 +10,8 @@ const RecentActivity = ({
   profile?: boolean;
 }) => {
   return (
-    <>
-      <div className="flex justify-between items-center max-w-[70vw] w-full m-auto mb-2">
+    <div>
+      <div className="flex justify-between items-center max-w-[70vw] w-full m-auto">
         <h1 className="text-2xl font-epiBold">
           {profile ? "Historial de puntos" : "Actividad reciente"}
         </h1>
@@ -52,7 +52,7 @@ const RecentActivity = ({
           <h4 className="py-6">No tienes actividad que mostrar</h4>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

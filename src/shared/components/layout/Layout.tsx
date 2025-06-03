@@ -1,7 +1,7 @@
 import { NavLink, Outlet } from "react-router";
 import { useAuth } from "../../../app/providers/AuthProvider";
 import ErrorPage from "../../../pages/ErrorPage";
-import LogoSvg from "../logoSvg";
+import LogoSvg from "../LogoSvg";
 
 const Layout = () => {
   const { logout } = useAuth();
