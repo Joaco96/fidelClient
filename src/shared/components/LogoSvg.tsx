@@ -7,8 +7,8 @@ const LogoSvg = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_1_158)">
-        <g clip-path="url(#clip1_1_158)">
+      <g clipPath="url(#clip0_1_158)">
+        <g clipPath="url(#clip1_1_158)">
           <path
             d="M18.808 3.62195H115.128V36.7219H55.218V101.272H102.218V134.372H55.218V235.322H18.808V3.62195Z"
             fill="#FC6F2F"

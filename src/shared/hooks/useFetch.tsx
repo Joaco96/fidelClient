@@ -1,0 +1,76 @@
+import { useEffect, useState } from "react";
+import { ApiError, ApiResponse } from "../../entitites/apiResponse";
+import { AxiosError } from "axios";
+import { toast } from "sonner";
+
+interface ServiceCallResponse<T> {
+  response: T | null;
+  error: ApiError | null;
+}
+
+function useFetch<T>({
+  service,
+  fetchOnRender = true,
+}: {
+  service?: () => Promise<ApiResponse<T>>;
+  fetchOnRender?: boolean;
+}) {
+  const [response, setResponse] = useState<T | null>(null);
+  const [isPending, setIsPending] = useState<boolean>(false);
+  const [error, setError] = useState<ApiError | null>(null);
+
+  useEffect(() => {
+    if (fetchOnRender) serviceCall();
+  }, []);
+
+  const serviceCall = async (): Promise<ServiceCallResponse<T>> => {
+    let serviceResponse: ServiceCallResponse<T> = {
+      response: null,
+      error: null,
+    };
+    if (!isPending && service) {
+      setIsPending(true);
+      setError(null);
+      try {
+        const { data } = await service();
+        setResponse(data);
+        serviceResponse = { response: data, error: null };
+      } catch (error) {
+        console.error(error);
+        if (error instanceof AxiosError) {
+          const errorMessage = error.response?.data?.error;
+          setError(errorMessage);
+          serviceResponse = { response: null, error: errorMessage };
+        } else {
+          setError(error as ApiError);
+          serviceResponse = { response: null, error: error as ApiError };
+        }
+      }
+      setIsPending(false);
+    }
+    return serviceResponse;
+  };
+
+  function handleApiResponse<T>(data: ServiceCallResponse<T>) {
+    if (data.response && typeof (data.response as any).message === "string") {
+      toast.success((data.response as any).message);
+    } else {
+      if (data.error?.message) toast.error(data.error?.message);
+      else {
+        const errores = Object.values(data.error ?? {}).flatMap((e) => e);
+        if (errores.length)
+          toast.error(errores.map((error) => <p>- {error}</p>));
+      }
+    }
+  }
+
+  return {
+    response,
+    isPending,
+    error,
+    serviceCall,
+    handleApiResponse,
+  };
+}
+
+export default useFetch;

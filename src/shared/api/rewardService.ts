@@ -7,4 +7,9 @@ export const rewardService = {
         const { data } =  await axiosClient.get('/rewards')
         return data;
     },
+    
+    getRewardById: async (id: string): Promise<ApiResponse<Reward[]>> => {
+        const { data } =  await axiosClient.get('/rewards', {params:{id: id}})
+        return data;
+    },
 }

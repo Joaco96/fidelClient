@@ -7,7 +7,7 @@ const RewardsLayout = ({rewards}:{rewards: Reward[] | null}) => {
         {rewards
           ? rewards.map((item) => {
               return (
-                <RewardCard reward={item} />
+                <RewardCard reward={item} key={item.id}/>
               );
             })
           : null}

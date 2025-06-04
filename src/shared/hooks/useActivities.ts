@@ -36,6 +36,7 @@ const useActivities = () => {
         secondaryDescription: redemption.reward.description,
         pointsUsed: `-${redemption.reward.points_cost} pts`,
         date: redemption.createdAt,
+        navLink: `/app/redemptions/${redemption.id}`,
       };
     }
   );

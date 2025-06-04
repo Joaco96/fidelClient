@@ -5,4 +5,5 @@ export interface Activity {
     secondaryDescription: string,
     pointsUsed: string,
     date: Date,
+    navLink?: string,
 }

@@ -4,10 +4,15 @@ import RoutesProvider from "./providers/RoutesProvider";
 
 function App() {
   return (
-    <AuthProvider>
-      <Toaster richColors position={"bottom-right"} />
-      <RoutesProvider />
-    </AuthProvider>
+    <>
+      <Toaster
+        richColors
+        position={"bottom-right"}
+      />
+      <AuthProvider>
+        <RoutesProvider />
+      </AuthProvider>
+    </>
   );
 }
 

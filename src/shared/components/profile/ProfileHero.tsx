@@ -1,3 +1,4 @@
+import { RoleIds } from "../../../entitites/Role";
 import { JwtPayload } from "../../types/jwtPayload";
 import { formatDate, ProfileOptions } from "../../utils/formatDate";
 import UserPoints from "../UserPoints";
@@ -22,10 +23,10 @@ const ProfileHero = ({ userData }: { userData: JwtPayload | null }) => {
                 ? formatDate(userData?.createdAt, ProfileOptions)
                 : "-"}
             </p>
-            <div className="bg-[#000] flex text-sm rounded-2xl px-[14px] pt-[3px] pb-[4px]">
-              {userData?.role === 1
+            <div className="bg-[#000] flex text-sm rounded-2xl px-[14px] pt-[3px] pb-[4px] w-fit">
+              {userData?.role === RoleIds.USER
                 ? "Usuario"
-                : userData?.role === 2
+                : userData?.role === RoleIds.EMPLOYEE
                 ? "Empleado"
                 : "Administrador"}
             </div>

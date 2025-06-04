@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { Activity } from "../../types/Activity.interface";
-import { ActivityOptions, formatDate } from "../../utils/formatDate";
+import ActivityCard from "./ActivityCard";
 
 const RecentActivity = ({
   activities,
@@ -18,10 +18,7 @@ const RecentActivity = ({
         {profile ? (
           ""
         ) : (
-          <Link
-            to="/app/profile"
-            className="h-[45px] text-white py-2"
-          >
+          <Link to="/app/profile" className="h-[45px] text-white py-2">
             Ver todos
           </Link>
         )}
@@ -29,23 +26,12 @@ const RecentActivity = ({
       <div className="pb-4 flex flex-col items-center w-full max-w-[70vw] m-auto gap-6">
         {activities.length ? (
           activities.map((item) => {
-            return (
-              <div
-                className="flex w-full justify-between border-1 border-white rounded-lg bg-[#1a1a1a] p-4"
-                key={item.id}
-              >
-                <div className="">
-                  <h5>{item.title}</h5>
-                  <div className="flex">
-                    <p>{`${item.primaryDescription} - ${item.secondaryDescription}`}</p>
-                    <p></p>
-                  </div>
-                </div>
-                <div className="flex flex-col items-end">
-                  <p>{item.pointsUsed}</p>
-                  <p>{formatDate(item.date, ActivityOptions)}</p>
-                </div>
-              </div>
+            return item.navLink ? (
+              <Link to={item.navLink} className="w-full">
+                <ActivityCard item={item} />
+              </Link>
+            ) : (
+              <ActivityCard item={item} />
             );
           })
         ) : (

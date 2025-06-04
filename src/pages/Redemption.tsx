@@ -1,7 +1,11 @@
+import { useParams } from "react-router";
+import RedemptionCard from "../shared/components/redemption/RedemptionCard";
 
 const Redemption = () => {
+  const { redemption_id } = useParams();
+
   return (
-    <div>Redemption</div>
+    <RedemptionCard redemptionId={redemption_id} />
   )
 }
 

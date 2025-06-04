@@ -19,7 +19,7 @@ const Rewards = () => {
     [rewardResponse]
   );
   const rewards = useMemo(
-    () => rewardResponse?.sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1)),
+    () => rewardResponse?.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1)),
     [rewardResponse]
   );
 
@@ -34,7 +34,7 @@ const Rewards = () => {
         </div>
         <UserPoints userData={userData} />
       </div>
-      <div className="flex flex-col justify-between items-start m-auto p-4 bg-amber-800 rounded-lg mt-6">
+      <div className="flex flex-col justify-between items-start m-auto p-4 bg-amber-800 rounded-lg mt-5">
         <h1 className="text-xl font-epiBold pb-3">Beneficios destacados</h1>
         <RewardsLayout rewards={featuredRewards ?? null} />
       </div>
