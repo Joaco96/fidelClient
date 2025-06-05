@@ -1,21 +1,21 @@
 @font-face {
 	font-family: 'Epilogue-Regular';
-	src: url(assets/fonts/Epilogue-Regular.ttf);
+	src: url(../public/fonts/Epilogue-Regular.ttf);
 	text-rendering: optimizeLegibility;
 }
 @font-face {
 	font-family: 'Epilogue-Bold';
-	src: url(assets/fonts/Epilogue-Bold.ttf);
+	src: url(../public/fonts/Epilogue-Bold.ttf);
 	text-rendering: optimizeLegibility;
 }
 @font-face {
 	font-family: 'Epilogue-Medium';
-	src: url(assets/fonts/Epilogue-Medium.ttf);
+	src: url(../public/fonts/Epilogue-Medium.ttf);
 	text-rendering: optimizeLegibility;
 }
 @font-face {
 	font-family: 'Epilogue-SemiBold';
-	src: url(assets/fonts/Epilogue-SemiBold.ttf);
+	src: url(../public/fonts/Epilogue-SemiBold.ttf);
 	text-rendering: optimizeLegibility;
 }
 
