@@ -5,6 +5,7 @@ import { toast } from "sonner";
 
 export default function Register() {
   const [email, setEmail] = useState("");
+  const [dni, setDni] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
@@ -18,7 +19,7 @@ export default function Register() {
     if (password === repeatedPassword) {
       setLoading(true);
       try {
-        const response = await authService.register({ name, email, password });
+        const response = await authService.register({ name, email, dni, password });
         if (response.success) {
           toast.success(response?.data?.message);
           navigate("/login");
@@ -66,6 +67,18 @@ export default function Register() {
               className="mt-1 block w-full px-4 py-2 text-gray-700 border rounded-md shadow-sm focus:ring focus:ring-indigo-300"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              DNI
+            </label>
+            <input
+              type="text"
+              className="mt-1 block w-full px-4 py-2 text-gray-700 border rounded-md shadow-sm focus:ring focus:ring-indigo-300"
+              value={dni}
+              onChange={(e) => setDni(e.target.value)}
               required
             />
           </div>

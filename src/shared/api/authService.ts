@@ -6,7 +6,7 @@ export const authService = {
         const { data } =  await axiosClient.post('/users/login', credentials);
         return data;
     },
-    register: async (credentials: {name: string, email:string, password:string}): Promise<ApiResponse<{message: string, id: string}>> => {
+    register: async (credentials: {name: string, email:string, dni:string, password:string}): Promise<ApiResponse<{message: string, id: string}>> => {
         const { data } =  await axiosClient.post('/users', credentials);
         return data;
     }
