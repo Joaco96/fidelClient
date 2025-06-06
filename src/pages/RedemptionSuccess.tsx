@@ -6,7 +6,7 @@ const RedemptionSuccess = () => {
 
   return (
     <>
-      Succesfullllllllllllll
+      <h3 className="max-w-[70vw] m-auto text-center pt-8">Beneficio canjeado con exito!</h3>
       <RedemptionCard redemptionId={redemption_id} />
     </>
   );

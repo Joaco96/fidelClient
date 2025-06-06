@@ -6,6 +6,7 @@ export class Redemption {
   declare reward_id: string;
   declare is_delivered: boolean;
   declare qr_code: string;
+  declare quantity: number;
   declare reward: Reward;
   declare createdAt: Date;
   declare updatedAt: Date;

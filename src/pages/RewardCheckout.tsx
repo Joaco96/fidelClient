@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import useFetch from "../shared/hooks/useFetch";
 import { rewardService } from "../shared/api/rewardService";
 import { useState } from "react";
@@ -9,6 +9,7 @@ import { redemptionService } from "../shared/api/redemptionService";
 
 const RewardCheckout = () => {
   const { userData } = useAuth();
+  const navigate = useNavigate();
   const { response: userPointsResponse } = useFetch({
     service: userData
       ? () => userService.getUserPoints(userData.userId)
@@ -69,6 +70,7 @@ const RewardCheckout = () => {
       if (userData?.userId && reward) {
         const data = await newRedemption();
         handleApiResponse(data);
+        navigate(`/app/rewards/checkout/result/${data.response?.id}`)
       }
     }
   };

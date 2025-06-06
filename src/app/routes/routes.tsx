@@ -19,6 +19,7 @@ import RedemptionSuccess from "../../pages/RedemptionSuccess";
 import Redemption from "../../pages/Redemption";
 import UserDetail from "../../pages/UserDetail";
 import Layout from "../../shared/components/layout/Layout";
+import NewTicket from "../../pages/NewTicket";
 
 export const router = createBrowserRouter([
   {
@@ -52,8 +53,16 @@ export const router = createBrowserRouter([
       {
         path: "admin",
         element: (
-          <ProtectedRoute minimumNeededRole={RoleIds.EMPLOYEE}>
+          <ProtectedRoute minimumNeededRole={RoleIds.ADMIN}>
             <Admin />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "ticket",
+        element: (
+          <ProtectedRoute minimumNeededRole={RoleIds.EMPLOYEE}>
+            <NewTicket />
           </ProtectedRoute>
         ),
       },
