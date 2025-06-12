@@ -20,8 +20,8 @@ const Landing = () => {
           </NavLink>
         </div>
         {userData ? (
-          <div className="cursor-pointer flex gap-4 w-1/4 justify-end">
-            <NavLink to="/app/dashboard">
+          <div className="cursor-pointer flex gap-4 w-1/4 justify-end items-center">
+            <NavLink to="/app/profile">
               <div className="flex items-center justify-center gap-2">
                 <div className="bg-[#000] rounded-full w-8 h-8 flex justify-center items-center font-bold text-2xl">
                   <span className="font-epiBold pt-2">
@@ -29,22 +29,27 @@ const Landing = () => {
                   </span>
                 </div>
                 <div className="flex flex-col justify-between items-start h-full gap-1">
-                  <h3 className="text-[#000] capitalize">
-                    {userData.name}
-                  </h3>
+                  <h3 className="text-[#000] capitalize">{userData.name}</h3>
                 </div>
               </div>
             </NavLink>
+            <NavLink
+              to="/app/dashboard"
+              className={"bg-amber-600 py-2 px-6 rounded-lg text-white"}
+            >
+              Ingresar
+            </NavLink>
           </div>
         ) : (
-          <div className="cursor-pointer flex gap-4 w-1/4 justify-end">
-            <NavLink to="/login">
-              <span className="text-[#000]">Iniciar sesion</span>
+          <div className="cursor-pointer flex gap-4 w-1/4 justify-end items-center">
+            <NavLink to="/login" className={"text-[#000]"}>
+              Iniciar sesion
             </NavLink>
-            <NavLink to="/register">
-              <span className="bg-amber-600 py-2 px-6 rounded-lg text-white">
-                Unite
-              </span>
+            <NavLink
+              to="/register"
+              className={"bg-amber-600 py-2 px-6 rounded-lg text-white"}
+            >
+              Unite
             </NavLink>
           </div>
         )}
