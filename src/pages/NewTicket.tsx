@@ -38,7 +38,7 @@ const NewTicket = () => {
             <div className="flex items-center justify-center gap-6">
               <div className="flex flex-col justify-between items-start h-full gap-1">
                 <h3 className="text-3xl font-epiBold">Seguimiento Tickets</h3>
-                <p>Buscá y canjeá beneficios con tus puntos disponibles.</p>
+                <p>Buscá y agregá nuevos comprobantes con el DNI del usuario.</p>
               </div>
             </div>
             <div className="bg-[#000] flex text-sm rounded-2xl px-[14px] pt-[3px] pb-[4px] w-fit">
