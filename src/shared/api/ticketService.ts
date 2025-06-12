@@ -7,4 +7,9 @@ export const ticketService = {
         const { data } =  await axiosClient.get('/tickets', {params:{user_id: id}})
         return data;
     },
+
+    getTickets: async (): Promise<ApiResponse<Ticket[]>>  => {
+        const { data } =  await axiosClient.get('/tickets')
+        return data;
+    },
 }

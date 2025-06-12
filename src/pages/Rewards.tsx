@@ -3,7 +3,7 @@ import { useAuth } from "../app/providers/AuthProvider";
 import { rewardService } from "../shared/api/rewardService";
 import UserPoints from "../shared/components/UserPoints";
 import useFetch from "../shared/hooks/useFetch";
-import RewardsLayout from "../shared/components/RewardsLayout";
+import RewardsLayout from "../shared/components/rewards/RewardsLayout";
 
 const Rewards = () => {
   const { userData } = useAuth();

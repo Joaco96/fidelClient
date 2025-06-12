@@ -6,7 +6,13 @@ import { decodeJWT } from "../../shared/utils/decodeJwt";
 import { JwtPayload } from "../../shared/types/jwtPayload";
 import ErrorPage from "../../pages/ErrorPage";
 
-export const ProtectedRoute = ({ children, minimumNeededRole }: { children: React.ReactNode, minimumNeededRole?: RoleIds }) => {
+export const ProtectedRoute = ({
+  children,
+  minimumNeededRole,
+}: {
+  children: React.ReactNode;
+  minimumNeededRole?: RoleIds;
+}) => {
   const location = useLocation();
   const [canView, setCanView] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -15,17 +21,20 @@ export const ProtectedRoute = ({ children, minimumNeededRole }: { children: Reac
 
   useEffect(() => {
     if (token && minimumNeededRole) {
-      const payload = decodeJWT<JwtPayload>(token)
-      setCanView(payload?.role ? payload?.role >= minimumNeededRole : false)
+      const payload = decodeJWT<JwtPayload>(token);
+      setCanView(payload?.role ? payload?.role >= minimumNeededRole : false);
     }
-    if (location.pathname === "/login" && token) {
-      navigate("/app/dashboard")
+    if (
+      (location.pathname === "/login") &&
+      token
+    ) {
+      navigate("/app/dashboard");
     }
     if (!token) {
       navigate("/login");
     }
-    setLoading(false)
+    setLoading(false);
   }, [token, navigate]);
 
-  return <>{loading ? null : (canView ? children : <ErrorPage />)}</>;
+  return <>{loading ? null : canView ? children : <ErrorPage />}</>;
 };

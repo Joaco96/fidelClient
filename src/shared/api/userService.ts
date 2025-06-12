@@ -22,4 +22,9 @@ export const userService = {
         const { data } =  await axiosClient.patch(('/users/assign-role/:id').replace(":id", id), body)
         return data;
     },
+
+    getUserById: async (id: string): Promise<ApiResponse<User[]>> => {
+        const { data } =  await axiosClient.get('/users', {params:{id: id}})
+        return data;
+    },
 }

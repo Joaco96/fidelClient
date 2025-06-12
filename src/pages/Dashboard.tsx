@@ -8,7 +8,7 @@ import useActivities from "../shared/hooks/useActivities";
 import { ActivityOptions, formatDate } from "../shared/utils/formatDate";
 import { useMemo } from "react";
 
-const MAX_RECENT_ACTIVITIES = 3;
+const MAX_RECENT_ACTIVITIES = 4;
 
 const Dashboard = () => {
   const { response: rewardResponse } = useFetch({
@@ -28,6 +28,7 @@ const Dashboard = () => {
         .slice(0, 2),
     [rewardResponse]
   );
+
   return (
     <>
       <DashboardHero />
@@ -37,7 +38,7 @@ const Dashboard = () => {
             to="/app/profile"
             className="w-1/2 p-3 border-1 border-white rounded-lg"
           >
-            <h4 className="">Historial de puntos</h4>
+            <h4 className="text-lg font-medium">Historial de puntos</h4>
             <p>Ver tus transacciones recientes</p>
             <p>
               Ultima actividad:
@@ -48,7 +49,7 @@ const Dashboard = () => {
             to="/app/rewards"
             className="w-1/2 p-3 border-1 border-white rounded-lg"
           >
-            <h4>Reclamar beneficios</h4>
+            <h4 className="text-lg font-medium">Reclamar beneficios</h4>
             <p>Ver beneficios destacados</p>
             <p>
               <span>{rewardsQuantity ? rewardsQuantity : "-"} </span>nuevos

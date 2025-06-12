@@ -1,4 +1,4 @@
-import { Reward } from '../../entitites/Reward';
+import { Reward } from '../../../entitites/Reward';
 import RewardCard from './RewardCard';
 
 const RewardsLayout = ({rewards}:{rewards: Reward[] | null}) => {

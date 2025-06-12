@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { Reward } from "../../../entitites/Reward";
-import RewardsLayout from "../RewardsLayout";
+import RewardsLayout from "../rewards/RewardsLayout";
 
 const FeaturedRewards = ({ rewards }: { rewards: Reward[] | null }) => {
   return (
