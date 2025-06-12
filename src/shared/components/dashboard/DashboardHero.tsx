@@ -37,6 +37,7 @@ const DashboardHero = () => {
               Nuevo ticket
             </Link>
           </div>
+          {userRole >= RoleIds.ADMIN ? (
           <div className="p-4 bg-[#252525] rounded-lg w-full flex gap-4 justify-between items-center">
             <div>
               <h3 className="text-lg font-medium">
@@ -52,7 +53,7 @@ const DashboardHero = () => {
             >
               Nuevo Beneficio
             </Link>
-          </div>
+          </div>) : null}
         </div>
       ) : null}
     </div>
