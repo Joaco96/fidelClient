@@ -17,7 +17,7 @@ const RewardCheckout = () => {
   });
 
   const { reward_id } = useParams();
-  
+
   const [quantity, setQuantity] = useState(1);
 
   const { response: reward } = useFetch({
@@ -26,16 +26,12 @@ const RewardCheckout = () => {
       : undefined,
   });
 
-  const { serviceCall: newRedemption, isPending, handleApiResponse } = useFetch({
-    service:
-      userData?.userId && reward
-        ? () =>
-            redemptionService.newRedemption({
-              user_id: userData.userId,
-              reward_id: reward[0].id,
-              quantity,
-            })
-        : undefined,
+  const {
+    serviceCall: newRedemption,
+    isPending,
+    handleApiResponse,
+  } = useFetch({
+    service: redemptionService.newRedemption,
     fetchOnRender: false,
   });
 
@@ -68,9 +64,13 @@ const RewardCheckout = () => {
       return;
     } else {
       if (userData?.userId && reward) {
-        const data = await newRedemption();
+        const data = await newRedemption({
+          user_id: userData.userId,
+          reward_id: reward[0].id,
+          quantity,
+        });
         handleApiResponse(data);
-        navigate(`/app/rewards/checkout/result/${data.response?.id}`)
+        navigate(`/app/rewards/checkout/result/${data.response?.id}`);
       }
     }
   };

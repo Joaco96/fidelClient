@@ -1,17 +1,31 @@
+import { useState } from "react";
 import { useAuth } from "../app/providers/AuthProvider";
 import { RoleIds } from "../entitites/Role";
 import { ticketService } from "../shared/api/ticketService";
 import { userService } from "../shared/api/userService";
+import FindUser from "../shared/components/ticket/FindUser";
 import TicketCard from "../shared/components/ticket/TicketCard";
 import useFetch from "../shared/hooks/useFetch";
+import { User } from "../entitites/User";
+import { toast } from "sonner";
+import { storeService } from "../shared/api/storeService";
+import Select from "../shared/components/Select";
 
 const LIMIT_DAYS = 7;
+const MAX_TICKETS = 5;
 
 const NewTicket = () => {
   const { userData } = useAuth();
   const { response: users } = useFetch({ service: userService.getUsers });
+  const { response: stores } = useFetch({ service: storeService.getStores });
   const { response: tickets } = useFetch({ service: ticketService.getTickets });
-  
+  const [user, setUser] = useState<User | null>(null);
+
+  const { serviceCall: getUserByDni, isPending } = useFetch({
+    service: userService.getUserByDni,
+    fetchOnRender: false,
+  });
+
   tickets?.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
 
   const cantUsers = users?.length;
@@ -23,12 +37,21 @@ const NewTicket = () => {
   const dateLimit = new Date(today.getTime());
   dateLimit.setDate(dateLimit.getDate() - LIMIT_DAYS);
 
-  tickets?.map((item) => {
+  tickets?.forEach((item) => {
     if (item.createdAt >= dateLimit) {
       cantTickets += 1;
       sumPuntos += item.points_earned;
     }
   });
+  const lastTickets = tickets?.slice(0, MAX_TICKETS);
+
+  const handleGetUserByDni = async (dni: string) => {
+    const data = await getUserByDni(dni);
+    if (data.response?.length) setUser(data.response[0]);
+    else {
+      toast.error("No encontramos ningún usuario con ese DNI");
+    }
+  };
 
   return (
     <>
@@ -38,7 +61,9 @@ const NewTicket = () => {
             <div className="flex items-center justify-center gap-6">
               <div className="flex flex-col justify-between items-start h-full gap-1">
                 <h3 className="text-3xl font-epiBold">Seguimiento Tickets</h3>
-                <p>Buscá y agregá nuevos comprobantes con el DNI del usuario.</p>
+                <p>
+                  Buscá y agregá nuevos comprobantes con el DNI del usuario.
+                </p>
               </div>
             </div>
             <div className="bg-[#000] flex text-sm rounded-2xl px-[14px] pt-[3px] pb-[4px] w-fit">
@@ -70,14 +95,29 @@ const NewTicket = () => {
         <div className="max-w-[70vw] flex w-full m-auto gap-8 pb-8 h-full relative">
           <div className="w-1/2 h-full border-1 border-white rounded-lg p-3">
             <h4 className="text-2xl pb-2 font-epiBold">Nuevo ticket</h4>
+            <FindUser
+              handleSubmit={handleGetUserByDni}
+              selectedUser={user}
+              loading={isPending}
+              resetUser={() => setUser(null)}
+            />
+            {user ? (
+              <Select
+                items={stores?.map((store) => {
+                  return { id: store.id, name: store.name };
+                })}
+                label={"Tienda"}
+                placeholder={"Selecciona la tienda"}
+              />
+            ) : null}
           </div>
           <div className="w-1/2 h-full border-1 border-white rounded-lg p-3">
             <h4 className="text-xl pb-4 font-epiBold">Historial reciente</h4>
             <div className="flex flex-col gap-6">
-              {tickets?.map((item) => {
-                return <TicketCard ticket={item} />
+              {lastTickets?.map((item) => {
+                return <TicketCard key={item.id} ticket={item} />;
               })}
-              </div>
+            </div>
           </div>
         </div>
       </div>

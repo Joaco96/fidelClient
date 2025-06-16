@@ -5,8 +5,6 @@ import { formatDate, TicketOptions } from "../../utils/formatDate";
 
 const TicketCard = ({ ticket }: { ticket: Ticket }) => {
   const user_id = ticket.user_id;
-  console.log(ticket);
-  console.log(user_id);
 
   const { response: user } = useFetch({
     service: () => userService.getUserById(user_id),

@@ -8,11 +8,11 @@ interface ServiceCallResponse<T> {
   error: ApiError | null;
 }
 
-function useFetch<T>({
+function useFetch<T, K>({
   service,
   fetchOnRender = true,
 }: {
-  service?: () => Promise<ApiResponse<T>>;
+  service?: (params: K) => Promise<ApiResponse<T>>;
   fetchOnRender?: boolean;
 }) {
   const [response, setResponse] = useState<T | null>(null);
@@ -20,10 +20,10 @@ function useFetch<T>({
   const [error, setError] = useState<ApiError | null>(null);
 
   useEffect(() => {
-    if (fetchOnRender) serviceCall();
+    if (fetchOnRender) serviceCall({} as K);
   }, []);
 
-  const serviceCall = async (): Promise<ServiceCallResponse<T>> => {
+  const serviceCall = async (params: K): Promise<ServiceCallResponse<T>> => {
     let serviceResponse: ServiceCallResponse<T> = {
       response: null,
       error: null,
@@ -32,7 +32,7 @@ function useFetch<T>({
       setIsPending(true);
       setError(null);
       try {
-        const { data } = await service();
+        const { data } = await service(params);
         setResponse(data);
         serviceResponse = { response: data, error: null };
       } catch (error) {
