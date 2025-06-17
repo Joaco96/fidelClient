@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { useAuth } from "../app/providers/AuthProvider";
 import { userService } from "../shared/api/userService";
 import { redemptionService } from "../shared/api/redemptionService";
+import { NumberFormatter } from "../shared/utils/numberFormatter";
 
 const RewardCheckout = () => {
   const { userData } = useAuth();
@@ -45,7 +46,7 @@ const RewardCheckout = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
     } else {
-      toast.error("Cantidad minima 1");
+      toast.warning("Cantidad minima 1");
     }
   };
 
@@ -54,7 +55,7 @@ const RewardCheckout = () => {
     if (quantity < reward?.[0].stock_balance) {
       setQuantity(quantity + 1);
     } else {
-      toast.error("Stock insuficiente");
+      toast.warning("Stock insuficiente");
     }
   };
 
@@ -93,7 +94,7 @@ const RewardCheckout = () => {
           <div className=" text-gray-700 text-end">
             <p>Puntos requeridos</p>
             <h6 className="text-end text-3xl font-epiBold">
-              {reward ? reward?.[0].points_cost : "-"} pts
+              {reward ? NumberFormatter.format(reward?.[0].points_cost) : "-"} pts
             </h6>
           </div>
         </div>
@@ -211,15 +212,15 @@ const RewardCheckout = () => {
                 </div>
                 <div className="flex justify-between items-center pt-2 border-top border-t-1">
                   <h6 className="font-medium">Tu balane de puntos</h6>
-                  <p>{balancePuntos} pts</p>
+                  <p>{NumberFormatter.format(balancePuntos)} pts</p>
                 </div>
                 <div className="flex justify-between items-center">
                   <h6 className="font-medium">Puntos requeridos</h6>
-                  <p>-{puntosRequeridos} pts</p>
+                  <p>-{NumberFormatter.format(puntosRequeridos)} pts</p>
                 </div>
                 <div className="flex justify-between items-center pt-2 border-top border-t-1">
                   <h6 className="font-medium">Tu balane de puntos</h6>
-                  <p>{balanceRestante} pts</p>
+                  <p>{NumberFormatter.format(balanceRestante)} pts</p>
                 </div>
                 <button
                   disabled={!reward || !userPointsResponse || isPending}

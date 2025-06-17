@@ -2,6 +2,7 @@ import { Ticket } from "../../../entitites/Ticket";
 import useFetch from "../../hooks/useFetch";
 import { userService } from "../../api/userService";
 import { formatDate, TicketOptions } from "../../utils/formatDate";
+import { NumberFormatter } from "../../utils/numberFormatter";
 
 const TicketCard = ({ ticket }: { ticket: Ticket }) => {
   const user_id = ticket.user_id;
@@ -28,7 +29,7 @@ const TicketCard = ({ ticket }: { ticket: Ticket }) => {
         </div>
         <div className="flex items-center">
           <p className="font-medium text-amber-600">
-            +{ticket.points_earned} pts
+            +{NumberFormatter.format(ticket.points_earned)} pts
           </p>
         </div>
       </div>

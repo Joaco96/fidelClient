@@ -1,6 +1,7 @@
 import { Redemption } from "../../../entitites/Redemption";
 import { Ticket } from "../../../entitites/Ticket";
 import { JwtPayload } from "../../types/jwtPayload";
+import { NumberFormatter } from "../../utils/numberFormatter";
 
 const ProfileInfo = ({
   userData,
@@ -23,7 +24,7 @@ const ProfileInfo = ({
       <div className="flex w-full gap-6">
         <div className="p-3 border-1 border-white rounded-lg w-1/3">
           <h4 className="font-medium">Total gastado</h4>
-          <p className="text-3xl font-bold">${totalSpent}</p>
+          <p className="text-3xl font-bold">${NumberFormatter.format(totalSpent)}</p>
           <p className="text-sm">En tiendas adheridas</p>
         </div>
         <div className="p-3 border-1 border-white rounded-lg w-1/3">
@@ -35,7 +36,7 @@ const ProfileInfo = ({
         </div>
         <div className="p-3 border-1 border-white rounded-lg w-1/3">
           <h4 className="font-medium">Nivel obtenido</h4>
-          <p className="text-3xl font-bold">{totalPoints}</p>
+          <p className="text-3xl font-bold">{NumberFormatter.format(totalPoints)}</p>
           <p className="text-sm">Puntos</p>
         </div>
       </div>
@@ -48,7 +49,7 @@ const ProfileInfo = ({
             <h5 className=" text-[#ccc]">Email</h5>
             <p className="pb-2 text-lg">{userData?.email}</p>
             <h5 className=" text-[#ccc]">DNI</h5>
-            <p className="text-lg">{userData?.dni}</p>
+            <p className="text-lg">{NumberFormatter.format(userData?.dni)}</p>
           </div>
         </div>
         <div className="flex p-3 flex-col border-1 w-1/2 border-white rounded-lg">

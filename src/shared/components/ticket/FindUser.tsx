@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { User } from "../../../entitites/User";
 
 const FindUser = ({
@@ -17,6 +17,10 @@ const FindUser = ({
   const handleFormSubmit = () => {
     if (dni.length) handleSubmit(dni);
   };
+
+  useEffect(() => {
+    if (!selectedUser) setDni("");
+  }, [selectedUser]);
 
   return (
     <div className="flex flex-col gap-3">
@@ -42,9 +46,16 @@ const FindUser = ({
           </button>
         </div>
       </div>
-      <div className="border-1 rounded-lg flex justify-between">
+      <div className="border-1 rounded-lg flex justify-between bg-gray-800">
         <span className="p-3">
-          {selectedUser ? selectedUser?.name : "Usuario no encontrado"}
+          {selectedUser ? (
+            <div>
+              <h5 className="capitalize font-bold">{selectedUser?.name}</h5>
+              <p>{selectedUser?.email}</p>
+            </div>
+          ) : (
+            "Usuario no encontrado"
+          )}
         </span>
         {selectedUser && (
           <button

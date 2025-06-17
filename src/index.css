@@ -1,21 +1,21 @@
 @font-face {
 	font-family: 'Epilogue-Regular';
-	src: url(../public/fonts/Epilogue-Regular.ttf);
+	src: url(/fonts/Epilogue-Regular.ttf);
 	text-rendering: optimizeLegibility;
 }
 @font-face {
 	font-family: 'Epilogue-Bold';
-	src: url(../public/fonts/Epilogue-Bold.ttf);
+	src: url(/fonts/Epilogue-Bold.ttf);
 	text-rendering: optimizeLegibility;
 }
 @font-face {
 	font-family: 'Epilogue-Medium';
-	src: url(../public/fonts/Epilogue-Medium.ttf);
+	src: url(/fonts/Epilogue-Medium.ttf);
 	text-rendering: optimizeLegibility;
 }
 @font-face {
 	font-family: 'Epilogue-SemiBold';
-	src: url(../public/fonts/Epilogue-SemiBold.ttf);
+	src: url(/Epilogue-SemiBold.ttf);
 	text-rendering: optimizeLegibility;
 }
 
@@ -53,3 +53,15 @@ body {
   min-height: 100dvh;
 }
 
+/* Para Chrome, Safari, Edge, Opera */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Para Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}

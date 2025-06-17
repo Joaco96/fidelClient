@@ -12,4 +12,14 @@ export const ticketService = {
         const { data } =  await axiosClient.get('/tickets')
         return data;
     },
+
+    getPointsRate: async (): Promise<ApiResponse<{rate: number}>>  => {
+        const { data } =  await axiosClient.get('/tickets/points-rate')
+        return data;
+    },
+
+    newTicket: async (body:{id: string, user_id: string, store_id: string, amount_spent: number}): Promise<ApiResponse<{message: string, points_earned: number}>> => {
+        const { data } = await axiosClient.post('/tickets', body);
+        return data;
+    }
 }

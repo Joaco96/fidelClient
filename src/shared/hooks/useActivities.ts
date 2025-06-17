@@ -3,6 +3,7 @@ import useFetch from "./useFetch";
 import { ticketService } from "../api/ticketService";
 import { redemptionService } from "../api/redemptionService";
 import { Activity } from "../types/Activity.interface";
+import { NumberFormatter } from "../utils/numberFormatter";
 
 const useActivities = () => {
   const { userData } = useAuth();
@@ -21,8 +22,8 @@ const useActivities = () => {
       id: ticket.id,
       title: "Comprobante entregado",
       primaryDescription: ticket.store.name,
-      secondaryDescription: `$${ticket.amount_spent}`,
-      pointsUsed: `+${ticket.points_earned} pts`,
+      secondaryDescription: `$${NumberFormatter.format(ticket.amount_spent)}`,
+      pointsUsed: `+${NumberFormatter.format(ticket.points_earned)} pts`,
       date: ticket.createdAt,
     };
   });
@@ -34,7 +35,7 @@ const useActivities = () => {
         title: "Beneficio canjeado",
         primaryDescription: redemption.reward.name,
         secondaryDescription: redemption.reward.description,
-        pointsUsed: `-${redemption.reward.points_cost} pts`,
+        pointsUsed: `-${NumberFormatter.format(redemption.reward.points_cost)} pts`,
         date: redemption.createdAt,
         navLink: `/app/redemptions/${redemption.id}`,
       };

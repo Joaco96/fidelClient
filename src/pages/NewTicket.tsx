@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useAuth } from "../app/providers/AuthProvider";
 import { RoleIds } from "../entitites/Role";
 import { ticketService } from "../shared/api/ticketService";
@@ -10,6 +10,7 @@ import { User } from "../entitites/User";
 import { toast } from "sonner";
 import { storeService } from "../shared/api/storeService";
 import Select from "../shared/components/Select";
+import { NumberFormatter } from "../shared/utils/numberFormatter";
 
 const LIMIT_DAYS = 7;
 const MAX_TICKETS = 5;
@@ -18,11 +19,28 @@ const NewTicket = () => {
   const { userData } = useAuth();
   const { response: users } = useFetch({ service: userService.getUsers });
   const { response: stores } = useFetch({ service: storeService.getStores });
-  const { response: tickets } = useFetch({ service: ticketService.getTickets });
+  const { response: tickets, serviceCall: getTickets } = useFetch({
+    service: ticketService.getTickets,
+  });
+  const { response: pointsRate } = useFetch({
+    service: ticketService.getPointsRate,
+  });
   const [user, setUser] = useState<User | null>(null);
+  const [ticketNum, setTicketNum] = useState<string>("");
+  const [ticketAmount, setTicketAmount] = useState<number>(0);
+  const storesSelectRef = useRef<HTMLSelectElement | null>(null);
 
-  const { serviceCall: getUserByDni, isPending } = useFetch({
+  const { serviceCall: getUserByDni, isPending: userPending } = useFetch({
     service: userService.getUserByDni,
+    fetchOnRender: false,
+  });
+
+  const {
+    serviceCall: newTicket,
+    isPending: ticketPending,
+    handleApiResponse,
+  } = useFetch({
+    service: ticketService.newTicket,
     fetchOnRender: false,
   });
 
@@ -38,11 +56,12 @@ const NewTicket = () => {
   dateLimit.setDate(dateLimit.getDate() - LIMIT_DAYS);
 
   tickets?.forEach((item) => {
-    if (item.createdAt >= dateLimit) {
+    if (new Date(item.createdAt) >= dateLimit) {
       cantTickets += 1;
       sumPuntos += item.points_earned;
     }
   });
+
   const lastTickets = tickets?.slice(0, MAX_TICKETS);
 
   const handleGetUserByDni = async (dni: string) => {
@@ -52,7 +71,31 @@ const NewTicket = () => {
       toast.error("No encontramos ningún usuario con ese DNI");
     }
   };
-
+  const handleNewTicket = async () => {
+    if (ticketAmount < 0) {
+      toast.warning("Ingresar un monto gastado mayor a 0");
+      return;
+    } else {
+      if (user && ticketNum && ticketAmount && storesSelectRef.current?.value) {
+        const data = await newTicket({
+          id: ticketNum,
+          user_id: user.id,
+          store_id: storesSelectRef.current?.value,
+          amount_spent: ticketAmount,
+        });
+        handleApiResponse(data);
+        if (data.response) {
+          setTicketAmount(0);
+          setTicketNum("");
+          setUser(null);
+          getTickets({});
+        }
+      } else{
+        toast.warning("Hay campos incompletos");
+      }
+    }
+  };
+  
   return (
     <>
       <div className="max-w-[70vw] flex flex-col w-full m-auto gap-8 pb-8 top-5 relative pt-3">
@@ -77,17 +120,17 @@ const NewTicket = () => {
           <div className="flex w-full gap-6">
             <div className="p-3 border-1 border-white rounded-lg w-1/3">
               <h4 className="font-medium">Comprobantes de esta semana</h4>
-              <p className="text-3xl font-bold">{cantTickets}</p>
+              <p className="text-3xl font-bold">{NumberFormatter.format(cantTickets)}</p>
               <p className="text-sm">Tickets</p>
             </div>
             <div className="p-3 border-1 border-white rounded-lg w-1/3">
               <h4 className="font-medium">Otorgados esta semana</h4>
-              <p className="text-3xl font-bold">{sumPuntos}</p>
+              <p className="text-3xl font-bold">{NumberFormatter.format(sumPuntos)}</p>
               <p className="text-sm">Puntos</p>
             </div>
             <div className="p-3 border-1 border-white rounded-lg w-1/3">
               <h4 className="font-medium">Usuarios activos</h4>
-              <p className="text-3xl font-bold">{cantUsers}</p>
+              <p className="text-3xl font-bold">{NumberFormatter.format(cantUsers)}</p>
               <p className="text-sm">Usuarios</p>
             </div>
           </div>
@@ -98,17 +141,62 @@ const NewTicket = () => {
             <FindUser
               handleSubmit={handleGetUserByDni}
               selectedUser={user}
-              loading={isPending}
+              loading={userPending}
               resetUser={() => setUser(null)}
             />
+
             {user ? (
-              <Select
-                items={stores?.map((store) => {
-                  return { id: store.id, name: store.name };
-                })}
-                label={"Tienda"}
-                placeholder={"Selecciona la tienda"}
-              />
+              <>
+                <label className="block my-2 text-sm font-medium text-gray-900 dark:text-white">
+                  Numero de comprobante
+                </label>
+                <input
+                  type="text"
+                  className="block w-full px-4 py-2 border rounded-md"
+                  onChange={(e) => setTicketNum(e.target.value)}
+                  value={ticketNum}
+                  placeholder="Ingresa el numero de ticket"
+                />
+                <label className="block my-2 text-sm font-medium text-gray-900 dark:text-white">
+                  Monto gastado
+                </label>
+                <input
+                  type="number"
+                  className="block w-full px-4 py-2 border rounded-md no-arrows"
+                  onChange={(e) => setTicketAmount(Number(e.target.value))}
+                  value={ticketAmount}
+                  placeholder="$"
+                />
+                <Select
+                  ref={storesSelectRef}
+                  items={stores?.map((store) => {
+                    return { id: store.id, name: store.name };
+                  })}
+                  label={"Tienda"}
+                  placeholder={"Selecciona la tienda"}
+                />{" "}
+                <div className="border-1 rounded-lg flex justify-between items-center p-3 mt-3 bg-gray-800">
+                  <div>
+                    <h6 className="font-bold">Puntos a asignar al usuario</h6>
+                    <p>
+                      {pointsRate?.rate ? pointsRate.rate * 10 : 0} puntos por cada $10
+                      gastados
+                    </p>
+                  </div>
+                  <span className="text-3xl font-medium">
+                    {ticketAmount && pointsRate?.rate
+                      ? NumberFormatter.format(Math.floor(ticketAmount * pointsRate.rate))
+                      : 0}
+                  </span>
+                </div>
+                <button
+                  disabled={ticketPending}
+                  onClick={handleNewTicket}
+                  className="text-white text-lg bg-amber-600 hover:bg-gray-800 px-2 py-2 w-full cursor-pointer outline-none rounded-lg mt-3"
+                >
+                  {ticketPending ? "Creando..." : "Crear nuevo ticket"}
+                </button>
+              </>
             ) : null}
           </div>
           <div className="w-1/2 h-full border-1 border-white rounded-lg p-3">

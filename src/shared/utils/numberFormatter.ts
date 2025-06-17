@@ -1,0 +1,37 @@
+export class NumberFormatter {
+  private static readonly THOUSANDS_SEPARATOR_REGEX = /\B(?=(\d{3})+(?!\d))/g;
+
+  static readonly format = (num: number | string | undefined): string => {
+    if (num === undefined || num === null) {
+      return "0";
+    }
+
+    let normalizedNum: number;
+
+    if (typeof num === "string") {
+      const isNegative = num.trim().startsWith("-");
+      const numericPart = num
+        .replace(/[^0-9,]/g, "")
+        .replace(/\./g, "")
+        .replace(",", ".");
+      normalizedNum = Number(numericPart);
+      if (isNegative) normalizedNum *= -1;
+    } else {
+      normalizedNum = num;
+    }
+
+    if (isNaN(normalizedNum)) {
+      return "0";
+    }
+
+    const fixed = normalizedNum.toFixed(2);
+    const [intPartRaw, decimalPart] = fixed.split(".");
+
+    const isNegative = intPartRaw.startsWith("-");
+    const intPart = isNegative ? intPartRaw.slice(1) : intPartRaw;
+
+    const intFormatted = intPart.replace(this.THOUSANDS_SEPARATOR_REGEX, ".");
+    if (decimalPart === "00") return intFormatted;
+    return `${isNegative ? "-" : ""}${intFormatted},${decimalPart}`;
+  };
+}

@@ -1,6 +1,7 @@
 import { userService } from "../api/userService";
 import useFetch from "../hooks/useFetch";
 import { JwtPayload } from "../types/jwtPayload";
+import { NumberFormatter } from "../utils/numberFormatter";
 
 const UserPoints = ({ userData }: { userData: JwtPayload | null }) => {
   const { response: userPointsResponse } = useFetch({
@@ -13,7 +14,7 @@ const UserPoints = ({ userData }: { userData: JwtPayload | null }) => {
     <div className="px-4 pt-3 pb-4 rounded-lg bg-[#1A1A1A] flex flex-col">
       <p>Balance disponible</p>
       <h6 className="text-end text-4xl font-bold">
-        {userPointsResponse ? userPointsResponse.points_balance : "-"}
+        {userPointsResponse ? NumberFormatter.format(userPointsResponse.points_balance) : "-"}
       </h6>
     </div>
   );
