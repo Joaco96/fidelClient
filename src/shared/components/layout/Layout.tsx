@@ -10,18 +10,18 @@ const Layout = () => {
 
   return (
     <div className="w-full">
-      <div className="w-full flex items-center justify-between py-3 px-8 bg-white text-white fixed z-2 h-[70px] transition-all">
+      <div className="w-full flex items-center justify-between py-3 px-8 bg-white text-white fixed z-2 h-[70px]">
         <NavLink to="/" className={"w-1/4"}>
           <LogoSvg />
         </NavLink>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center">
           <NavLink to="/app/dashboard">
             {({ isActive }) => (
               <span
                 className={
                   isActive
-                    ? "text-amber-500 cursor-pointer border-b-3 pb-[22px]"
-                    : "text-[#000] cursor-pointer"
+                    ? "text-amber-500 cursor-pointer border-b-3 pb-[22px] px-4 transition-all"
+                    : "text-[#000] cursor-pointer px-4 pb-[28px]"
                 }
               >
                 Inicio
@@ -35,8 +35,8 @@ const Layout = () => {
                   <span
                     className={
                       isActive
-                        ? "text-amber-500 cursor-pointer border-b-3 pb-[22px]"
-                        : "text-[#000] cursor-pointer"
+                        ? "text-amber-500 cursor-pointer border-b-3 pb-[22px] px-4 transition-all"
+                        : "text-[#000] cursor-pointer px-4 pb-[28px]"
                     }
                   >
                     Panel
@@ -51,8 +51,8 @@ const Layout = () => {
                   <span
                     className={
                       isActive
-                        ? "text-amber-500 cursor-pointer border-b-3 pb-[22px]"
-                        : "text-[#000] cursor-pointer"
+                        ? "text-amber-500 cursor-pointer border-b-3 pb-[22px] px-4 transition-all"
+                        : "text-[#000] cursor-pointer px-4 pb-[28px]"
                     }
                   >
                     Usuarios
@@ -67,8 +67,8 @@ const Layout = () => {
                   <span
                     className={
                       isActive
-                        ? "text-amber-500 cursor-pointer border-b-3 pb-[22px]"
-                        : "text-[#000] cursor-pointer"
+                        ? "text-amber-500 cursor-pointer border-b-3 pb-[22px] px-4 transition-all"
+                        : "text-[#000] cursor-pointer px-4 pb-[28px]"
                     }
                   >
                     Tickets
@@ -81,8 +81,8 @@ const Layout = () => {
               <span
                 className={
                   isActive
-                    ? "text-amber-500 cursor-pointer border-b-3 pb-[22px]"
-                    : "text-[#000] cursor-pointer"
+                    ? "text-amber-500 cursor-pointer border-b-3 pb-[22px] px-4 transition-all"
+                    : "text-[#000] cursor-pointer px-4 pb-[28px]"
                 }
               >
                 Beneficios
@@ -94,8 +94,8 @@ const Layout = () => {
               <span
                 className={
                   isActive
-                    ? "text-amber-500 cursor-pointer border-b-3 pb-[22px]"
-                    : "text-[#000] cursor-pointer"
+                    ? "text-amber-500 cursor-pointer border-b-3 pb-[22px] px-4 transition-all"
+                    : "text-[#000] cursor-pointer px-4 pb-[28px]"
                 }
               >
                 Perfil

@@ -53,7 +53,7 @@ const NewReward = () => {
         <div className="flex items-center justify-center gap-6">
           <div className="flex flex-col justify-between items-start h-full gap-1">
             <h3 className="text-3xl font-epiBold pt-2">Nuevo beneficio</h3>
-            <p>Creá un nuevo beneficio ppara el programa de fidelización.</p>
+            <p>Creá un nuevo beneficio para el programa de fidelización.</p>
           </div>
         </div>
 
@@ -63,8 +63,8 @@ const NewReward = () => {
       </div>
       <div className="max-w-[70vw] flex w-full m-auto gap-8 pb-8 h-full relative">
         <div className="w-1/2">
-          <div className="h-fit border-1 border-white rounded-lg p-3">
-            <label className="block my-2 text-sm font-medium text-gray-900 dark:text-white">
+          <div className="h-fit border-1 border-white rounded-lg p-5">
+            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
               Nombre del beneficio
             </label>
             <input
@@ -111,29 +111,33 @@ const NewReward = () => {
                 />
               </div>
             </div>
+          </div>
             <button
               disabled={isPending}
               onClick={handleNewReward}
-              className="text-white text-lg bg-amber-600 hover:bg-gray-800 px-2 py-2 w-full cursor-pointer outline-none rounded-lg mt-3"
+              className="text-white text-lg bg-amber-600 hover:bg-gray-800 px-2 py-2 w-full cursor-pointer outline-none rounded-lg mt-6"
             >
               {isPending ? "Creando..." : "Crear beneficio"}
             </button>
-          </div>
           <p className="pt-4">
             Este beneficio aparecerá en el catalogo una vez creado.
           </p>
         </div>
         <div className="w-1/2 h-full px-3">
           <h4 className="text-xl pb-4 font-epiBold">Vista previa</h4>
-          <div className="border-1 overflow-hidden w-full rounded-lg bg-[#1a1a1a] border-white">
-            <img
-              src="/mock-reward.png"
-              alt={rewardName ?? ""}
-              className="h-[200px] w-full object-cover object-center"
-            />
+          <div className="border-1 overflow-hidden w-full rounded-lg bg-[#1a1a1a] border-white hover:border-amber-500 group hover:cursor-pointer">
+            <div className="h-[200px] w-full overflow-hidden z-2">
+              <img
+                src="/mock-reward.png"
+                alt={rewardName ?? ""}
+                className="w-full object-cover object-center group-hover:scale-[104%] transition-all duration-400"
+              />
+            </div>
             <div className="p-5">
               <span>9841984198848449849</span>
-              <h2 className="font-bold text-xl pb-2">{rewardName}</h2>
+              <h2 className="font-bold text-xl pb-2 group-hover:text-amber-500">
+                {rewardName}
+              </h2>
               <p className="tres-lineas">{rewardDescription}</p>
               <h4>Costo: {NumberFormatter.format(pointsCost)} puntos</h4>
               <h5>Stock: {initialBalance} beneficios</h5>

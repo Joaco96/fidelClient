@@ -13,13 +13,26 @@ export const rewardService = {
     return data;
   },
 
-  newReward: async (credentials: {
+  newReward: async (body: {
     name: string;
     description: string;
     points_cost: number;
     stock_balance: number;
   }): Promise<ApiResponse<{ message: string; id: string }>> => {
-    const { data } = await axiosClient.post("/rewards", credentials);
+    const { data } = await axiosClient.post("/rewards", body);
+    return data;
+  },
+
+  editReward: async (updateData: {
+    id: string;
+    name: string;
+    description: string;
+    points_cost: number;
+  }): Promise<ApiResponse<Reward>> => {
+    const { data } = await axiosClient.patch(
+      "/rewards/:id".replace(":id", updateData.id!),
+      updateData
+    );
     return data;
   },
 };

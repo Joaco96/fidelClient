@@ -21,12 +21,23 @@ const RewardCard = ({
       }`}
     >
       {userRole >= RoleIds.ADMIN ? (
-        <Link
-          to={`/app/rewards/edit/${reward.id}`}
-          className="absolute top-2 right-2 bg-amber-500 hover:bg-amber-600 flex text-sm rounded-md px-[20px] pt-[5px] pb-[5px] w-fit z-20"
-        >
-          Editar
-        </Link>
+        <div className="absolute top-2 right-2 flex flex-col items-end gap-2">
+          <Link
+            to={`/app/rewards/edit/${reward.id}`}
+            className=" bg-amber-500 hover:bg-amber-600 flex text-sm rounded-md px-[20px] pt-[5px] pb-[5px] w-fit z-20"
+          >
+            Editar
+          </Link>
+          {!rewardStockPositive ? (
+            <div className="bg-[#f00f00] flex text-sm rounded-md px-[20px] pt-[5px] pb-[5px] w-fit z-20">
+              Sin stock
+            </div>
+          ) : null}
+        </div>
+      ) : !rewardStockPositive ? (
+        <div className="absolute top-2 right-2 bg-[#f00f00] flex text-sm rounded-md px-[20px] pt-[5px] pb-[5px] w-fit z-20">
+          Sin stock
+        </div>
       ) : null}
       <Link
         to={`/app/rewards/checkout/${reward.id}`}
@@ -36,7 +47,7 @@ const RewardCard = ({
           <img
             src="/mock-reward.png"
             alt={reward.name}
-            className="h-[200px] w-full object-cover object-center group-hover:scale-[104%] transition-all duration-400"
+            className="w-full object-cover object-center group-hover:scale-[104%] transition-all duration-400"
           />
         </div>
         <div className="p-5">
