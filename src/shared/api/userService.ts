@@ -39,6 +39,15 @@ export const userService = {
     return data;
   },
 
+  deleteUser: async (
+    id: string,
+  ): Promise<ApiResponse<[]>> => {
+    const { data } = await axiosClient.delete(
+      "/users/:id".replace(":id", id)
+    );
+    return data;
+  },
+
   getUserById: async (id: string): Promise<ApiResponse<User[]>> => {
     const { data } = await axiosClient.get("/users", { params: { id: id } });
     return data;

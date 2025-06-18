@@ -7,11 +7,16 @@ import useActivities from "../shared/hooks/useActivities";
 const Profile = () => {
   const { userData } = useAuth();
   const { tickets, redemptions, sortedActivities } = useActivities();
+
   return (
     <div className="relative top-5">
-      <ProfileHero userData={userData}/>
-      <ProfileInfo userData={userData} tickets={tickets} redemptions={redemptions}/>
-      <RecentActivity activities={sortedActivities} profile={true}/>
+      <ProfileHero userData={userData} />
+      <ProfileInfo
+        userData={userData}
+        tickets={tickets}
+        redemptions={redemptions}
+      />
+      <RecentActivity activities={sortedActivities} profile={true} />
     </div>
   );
 };

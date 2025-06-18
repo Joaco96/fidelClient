@@ -130,7 +130,7 @@ const NewReward = () => {
               <img
                 src="/mock-reward.png"
                 alt={rewardName ?? ""}
-                className="w-full object-cover object-center group-hover:scale-[104%] transition-all duration-400"
+                className="w-full h-full object-cover object-center group-hover:scale-[104%] transition-all duration-400"
               />
             </div>
             <div className="p-5">

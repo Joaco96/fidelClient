@@ -25,13 +25,12 @@ export const rewardService = {
 
   editReward: async (updateData: {
     id: string;
-    name: string;
     description: string;
-    points_cost: number;
   }): Promise<ApiResponse<Reward>> => {
+    const { id , ...body} = updateData;
     const { data } = await axiosClient.patch(
-      "/rewards/:id".replace(":id", updateData.id!),
-      updateData
+      "/rewards/:id".replace(":id", id),
+      body
     );
     return data;
   },

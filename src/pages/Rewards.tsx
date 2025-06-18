@@ -16,17 +16,32 @@ const Rewards = () => {
 
   const rewards = useMemo(() => {
     if (!rewardResponse) return [];
-    return [...rewardResponse].sort((a, b) =>
-      a.createdAt < b.createdAt ? 1 : -1
-    );
-  }, [rewardResponse]);
+    const newArray = [...rewardResponse]
+      .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
+      .filter((reward) => {
+        if (userRole >= RoleIds.ADMIN) {
+          return true;
+        } else {
+          return reward.stock_balance > 0;
+        }
+      });
+    return newArray;
+  }, [rewardResponse, userRole]);
 
   const featuredRewards = useMemo(() => {
     if (!rewardResponse) return [];
-    return [...rewardResponse]
+    const newArray = [...rewardResponse]
       .sort((a, b) => (a.points_cost < b.points_cost ? 1 : -1))
+      .filter((reward) => {
+        if (userRole >= RoleIds.ADMIN) {
+          return true;
+        } else {
+          return reward.stock_balance > 0;
+        }
+      })
       .slice(0, 2);
-  }, [rewardResponse]);
+    return newArray;
+  }, [rewardResponse, userRole]);
 
   return (
     <div className="max-w-[70dvw] m-auto rounded-lg pb-8 top-5 relative pt-3">
@@ -61,12 +76,17 @@ const Rewards = () => {
           <UserPoints userData={userData} />
         )}
       </div>
-      <div className="flex flex-col justify-between items-start m-auto p-4 bg-amber-800 rounded-lg mt-5">
-        <h1 className="text-xl font-epiBold pb-3">Beneficios destacados</h1>
-        <RewardsLayout rewards={featuredRewards ?? null} userRole={userRole}/>
-      </div>
+      {userRole < RoleIds.ADMIN ? (
+        <div className="flex flex-col justify-between items-start m-auto p-4 bg-amber-800 rounded-lg mt-5">
+          <h1 className="text-xl font-epiBold pb-3">Beneficios destacados</h1>
+          <RewardsLayout
+            rewards={featuredRewards ?? null}
+            userRole={userRole}
+          />
+        </div>
+      ) : null}
       <div className="mt-8">
-        <RewardsLayout rewards={rewards ?? null} userRole={userRole}/>
+        <RewardsLayout rewards={rewards ?? null} userRole={userRole} />
       </div>
     </div>
   );

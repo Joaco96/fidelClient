@@ -35,7 +35,7 @@ const useActivities = () => {
         title: "Beneficio canjeado",
         primaryDescription: redemption.reward.name,
         secondaryDescription: redemption.reward.description,
-        pointsUsed: `-${NumberFormatter.format(redemption.reward.points_cost)} pts`,
+        pointsUsed: `-${NumberFormatter.format(redemption.reward.points_cost * redemption.quantity)} pts`,
         date: redemption.createdAt,
         navLink: `/app/redemptions/${redemption.id}`,
       };

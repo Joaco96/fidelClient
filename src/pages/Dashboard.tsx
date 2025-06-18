@@ -8,6 +8,7 @@ import useActivities from "../shared/hooks/useActivities";
 import { ActivityOptions, formatDate } from "../shared/utils/formatDate";
 import { useMemo } from "react";
 import { useAuth } from "../app/providers/AuthProvider";
+import { RoleIds } from "../entitites/Role";
 
 const MAX_RECENT_ACTIVITIES = 4;
 
@@ -24,13 +25,20 @@ const Dashboard = () => {
     ? formatDate(sortedActivities[0]?.date, ActivityOptions)
     : "-";
 
-  const featuredRewards = useMemo(
-    () =>
-      rewardResponse
-        ?.sort((a, b) => (a.points_cost < b.points_cost ? 1 : -1))
-        .slice(0, 2),
-    [rewardResponse]
-  );
+  const featuredRewards = useMemo(() => {
+    if (!rewardResponse) return [];
+    const newArray = [...rewardResponse]
+      .sort((a, b) => (a.points_cost < b.points_cost ? 1 : -1))
+      .filter((reward) => {
+        if (userRole >= RoleIds.ADMIN) {
+          return true;
+        } else {
+          return reward.stock_balance > 0;
+        }
+      })
+      .slice(0, 2);
+    return newArray;
+  }, [rewardResponse, userRole]);
 
   return (
     <>
@@ -60,7 +68,10 @@ const Dashboard = () => {
             </p>
           </Link>
         </div>
-        <FeaturedRewards rewards={featuredRewards ?? null} userRole={userRole}/>
+        <FeaturedRewards
+          rewards={featuredRewards ?? null}
+          userRole={userRole}
+        />
         <RecentActivity
           activities={sortedActivities.slice(0, MAX_RECENT_ACTIVITIES)}
         />

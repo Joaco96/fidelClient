@@ -3,6 +3,10 @@ import { Redemption } from "../../../entitites/Redemption";
 import { Ticket } from "../../../entitites/Ticket";
 import { JwtPayload } from "../../types/jwtPayload";
 import { NumberFormatter } from "../../utils/numberFormatter";
+import { useConfirmModal } from "../../hooks/useConfirmModal";
+import { userService } from "../../api/userService";
+import useFetch from "../../hooks/useFetch";
+import { useAuth } from "../../../app/providers/AuthProvider";
 
 const ProfileInfo = ({
   userData,
@@ -19,9 +23,37 @@ const ProfileInfo = ({
     totalSpent += ticket.amount_spent;
     totalPoints += ticket.points_earned;
   });
+  const { logout } = useAuth();
+  const {
+    serviceCall: deleteUser,
+    handleApiResponse,
+    isPending,
+  } = useFetch({
+    service: userService.deleteUser,
+    fetchOnRender: false,
+  });
+
+  const { openModal, ConfirmModalComponent } = useConfirmModal();
+
+  const handleDeleteUser = () => {
+    openModal({
+      title: "Eliminar cuenta",
+      message: "Esta acción eliminará el elemento permanentemente.",
+      onConfirm: async () => {
+        if (userData) {
+          const data = await deleteUser(userData?.userId);
+          handleApiResponse(data);
+          if (data.response) {
+            logout();
+          }
+        }
+      },
+    });
+  };
 
   return (
     <div className="max-w-[70vw] flex flex-col w-full m-auto gap-6 pb-8">
+      {ConfirmModalComponent}
       <div className="flex w-full gap-6">
         <div className="p-3 border-1 border-white rounded-lg w-1/3">
           <h4 className="font-medium">Total gastado</h4>
@@ -49,7 +81,10 @@ const ProfileInfo = ({
         <div className="flex p-3 flex-col border-1 w-1/2 border-white rounded-lg">
           <div className="flex justify-between items-center pb-2">
             <h4 className="text-2xl font-epiBold">Informacion personal</h4>
-            <Link to={`/app/profile/${userData?.userId}`} className="bg-amber-500 hover:bg-amber-600 flex rounded-md px-[20px] pt-[5px] pb-[5px] w-fit">
+            <Link
+              to={`/app/profile/${userData?.userId}`}
+              className="bg-amber-500 hover:bg-amber-600 flex rounded-md px-[20px] pt-[5px] pb-[5px] w-fit"
+            >
               Editar
             </Link>
           </div>
@@ -70,8 +105,12 @@ const ProfileInfo = ({
             <button className=" text-[#ccc] py-2 cursor-pointer hover:bg-gray-900 disabled:opacity-50 border-1 border-[#ccc] w-full rounded-lg">
               Cambiar contraseña
             </button>
-            <button className=" text-[#f00] py-2 cursor-pointer disabled:opacity-50">
-              Eliminar cuenta
+            <button
+              disabled={isPending}
+              onClick={handleDeleteUser}
+              className=" text-[#f00] py-2 cursor-pointer disabled:opacity-50"
+            >
+              {isPending ? "Eliminando..." : "Eliminar cuenta"}
             </button>
           </div>
         </div>
