@@ -6,8 +6,6 @@ import {
   ReactNode,
 } from "react";
 import { authService } from "../../shared/api/authService";
-import { AxiosError } from "axios";
-import { ApiResponse } from "../../entitites/apiResponse";
 import axiosClient from "../../shared/api/axiosClient";
 import { setItem } from "../../shared/utils/localStorage/saveToLocalStorage";
 import { removeItem } from "../../shared/utils/localStorage/deleteFromLocalStorage";
@@ -15,6 +13,7 @@ import { getItem } from "../../shared/utils/localStorage/getFromLocalStorage";
 import { AuthContextType } from "../../shared/types/AuthContextTypes";
 import { JwtPayload } from "../../shared/types/jwtPayload";
 import { decodeJWT } from "../../shared/utils/decodeJwt";
+import useFetch from "../../shared/hooks/useFetch";
 
 // Creamos el contexto
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -23,6 +22,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
   const [userData, setUserData] = useState<JwtPayload | null>(null);
   const [loading, setLoading] = useState(true);
+  const { serviceCall: loginService, handleApiResponse } = useFetch({
+    service: authService.login,
+    fetchOnRender: false,
+  });
 
   const setAuthToken = (token: string | null) => {
     if (token) {
@@ -62,22 +65,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = async (credentials: {
     email: string;
     password: string;
-  }): Promise<ApiResponse<{ message: string; token: string }>> => {
-    try {
-      const response = await authService.login(credentials);
-      setAuthToken(response?.data?.token ?? null);
-      setToken(response?.data?.token ?? null);
-      if (response?.data?.token !== null) {
-        setItem<string | null>("token", response?.data?.token ?? null);
-      }
-      return response;
-    } catch (error) {
-      console.error(error);
-      throw (
-        ((error as AxiosError).response?.data as ApiResponse).error?.message ||
-        "No se pudo iniciar sesión"
-      );
+  }): Promise<{ message: string; token: string } | null> => {
+    const data = await loginService(credentials);
+    handleApiResponse(data);
+    const authToken = data?.response?.token ?? null;
+    setAuthToken(authToken);
+    setToken(authToken);
+    if (authToken !== null) {
+      setItem<string | null>("token", authToken);
     }
+    return data.response;
   };
 
   const logout = () => {

@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { authService } from "../shared/api/authService";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
+import useFetch from "../shared/hooks/useFetch";
 import { toast } from "sonner";
 
 export default function Register() {
@@ -12,30 +13,24 @@ export default function Register() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { serviceCall: register, handleApiResponse } = useFetch({
+    service: authService.register,
+    fetchOnRender: false,
+  });
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
     if (password === repeatedPassword) {
       setLoading(true);
-      try {
-        const response = await authService.register({ name, email, dni, password });
-        if (response.success) {
-          toast.success(response?.data?.message);
-          navigate("/login");
-        }
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else if (typeof err === "string") {
-          setError(err);
-        } else {
-          setError("Error desconocido al registrarse");
-        }
-        setLoading(false);
+      const data = await register({ name, email, dni, password });
+      handleApiResponse(data);
+      if (data.response) {
+        navigate("/login");
       }
+      setLoading(false);
     } else {
-      setError("Las contraseñas deben ser iguales");
+      toast.warning("Las contraseñas deben ser iguales");
     }
   };
 
@@ -123,6 +118,10 @@ export default function Register() {
             {loading ? "Registrando..." : "Registrarse"}
           </button>
         </form>
+        <div className="flex gap-2 pt-4">
+          <h5 className="text-black">Tenes cuenta?</h5>
+          <Link to={"/login"} className="text-blue-700 underline">Inicia sesion</Link>
+        </div>
       </div>
     </div>
   );

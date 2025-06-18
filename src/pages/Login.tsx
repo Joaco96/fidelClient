@@ -1,7 +1,6 @@
 import { FormEvent, useState } from "react";
 import { useAuth } from "../app/providers/AuthProvider";
-import { useNavigate } from "react-router";
-import { toast } from "sonner";
+import { Link, useNavigate } from "react-router";
 
 export default function Login() {
   const { login } = useAuth();
@@ -16,21 +15,11 @@ export default function Login() {
     setError(null);
     setLoading(true);
 
-    try {
-      const response = await login({ email, password });
-      if (response.success) {
-        toast.success(response.data.message)
-        navigate("/dashboard")
-      };
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else if (typeof err === "string") {
-        setError(err);
-      } else {
-        setError("Error desconocido al iniciar sesión");
-      }
-      setLoading(false);
+    const response = await login({ email, password });
+    setLoading(false);
+
+    if (response) {
+      navigate("/dashboard");
     }
   };
 
@@ -76,6 +65,10 @@ export default function Login() {
             {loading ? "Ingresando..." : "Iniciar sesión"}
           </button>
         </form>
+        <div className="flex gap-2 pt-4">
+          <h5 className="text-black">No tenes cuenta?</h5>
+          <Link to={"/register"} className="text-blue-700 underline">Registrate</Link>
+        </div>
       </div>
     </div>
   );
