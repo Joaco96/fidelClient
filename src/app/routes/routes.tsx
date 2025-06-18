@@ -20,6 +20,7 @@ import Redemption from "../../pages/Redemption";
 import UserDetail from "../../pages/UserDetail";
 import Layout from "../../shared/components/layout/Layout";
 import NewTicket from "../../pages/NewTicket";
+import ProfileDetail from "../../pages/ProfileDetail";
 
 export const router = createBrowserRouter([
   {
@@ -68,11 +69,24 @@ export const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: (
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
-        ),
+        children: [
+          {
+            index: true,
+            element: (
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: ":user_id",
+            element: (
+              <ProtectedRoute minimumNeededRole={RoleIds.ADMIN}>
+                <ProfileDetail />
+              </ProtectedRoute>
+            ),
+          },
+        ],
       },
       {
         path: "users",

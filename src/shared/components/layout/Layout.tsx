@@ -10,7 +10,7 @@ const Layout = () => {
 
   return (
     <div className="w-full">
-      <div className="w-full flex items-center justify-between py-3 px-8 bg-white text-white fixed z-2 h-[70px]">
+      <div className="w-full flex items-center justify-between py-3 px-8 bg-white text-white fixed z-2 h-[70px] transition-all">
         <NavLink to="/" className={"w-1/4"}>
           <LogoSvg />
         </NavLink>
@@ -20,7 +20,7 @@ const Layout = () => {
               <span
                 className={
                   isActive
-                    ? "text-amber-500 cursor-pointer"
+                    ? "text-amber-500 cursor-pointer border-b-3 pb-[22px]"
                     : "text-[#000] cursor-pointer"
                 }
               >
@@ -35,7 +35,7 @@ const Layout = () => {
                   <span
                     className={
                       isActive
-                        ? "text-amber-500 cursor-pointer"
+                        ? "text-amber-500 cursor-pointer border-b-3 pb-[22px]"
                         : "text-[#000] cursor-pointer"
                     }
                   >
@@ -51,7 +51,7 @@ const Layout = () => {
                   <span
                     className={
                       isActive
-                        ? "text-amber-500 cursor-pointer"
+                        ? "text-amber-500 cursor-pointer border-b-3 pb-[22px]"
                         : "text-[#000] cursor-pointer"
                     }
                   >
@@ -67,7 +67,7 @@ const Layout = () => {
                   <span
                     className={
                       isActive
-                        ? "text-amber-500 cursor-pointer"
+                        ? "text-amber-500 cursor-pointer border-b-3 pb-[22px]"
                         : "text-[#000] cursor-pointer"
                     }
                   >
@@ -81,7 +81,7 @@ const Layout = () => {
               <span
                 className={
                   isActive
-                    ? "text-amber-500 cursor-pointer"
+                    ? "text-amber-500 cursor-pointer border-b-3 pb-[22px]"
                     : "text-[#000] cursor-pointer"
                 }
               >
@@ -94,7 +94,7 @@ const Layout = () => {
               <span
                 className={
                   isActive
-                    ? "text-amber-500 cursor-pointer"
+                    ? "text-amber-500 cursor-pointer border-b-3 pb-[22px]"
                     : "text-[#000] cursor-pointer"
                 }
               >
@@ -107,8 +107,8 @@ const Layout = () => {
           {userData ? (
             <NavLink to="/app/profile">
               <div className="flex items-center justify-center gap-2 pr-4">
-                <div className="bg-[#000] rounded-full w-8 h-8 flex justify-center items-center font-bold text-2xl">
-                  <span className="font-epiBold pt-2">
+                <div className="bg-[#000] rounded-full w-8 h-8 flex justify-center items-center font-bold text-xl">
+                  <span className="font-bold leading-9 pb-[2px]">
                     {userData?.name.charAt(0).toUpperCase()}
                   </span>
                 </div>

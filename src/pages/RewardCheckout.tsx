@@ -7,6 +7,7 @@ import { useAuth } from "../app/providers/AuthProvider";
 import { userService } from "../shared/api/userService";
 import { redemptionService } from "../shared/api/redemptionService";
 import { NumberFormatter } from "../shared/utils/numberFormatter";
+import { RoleIds } from "../entitites/Role";
 
 const RewardCheckout = () => {
   const { userData } = useAuth();
@@ -81,7 +82,14 @@ const RewardCheckout = () => {
       <Link to="/app/rewards" className="h-[45px] text-white">
         Vovler a Beneficios
       </Link>
-      <div className="flex flex-col rounded-lg overflow-hidden mt-6">
+      <div className="flex flex-col relative rounded-lg overflow-hidden mt-6">
+        {userData?.role ? userData?.role >= RoleIds.ADMIN ? (
+              <Link
+                to={`/app/rewards/edit/${reward_id}`}
+                className="absolute top-4 right-4 bg-amber-500 hover:bg-amber-600 flex rounded-md px-[24px] pt-[8px] pb-[8px] w-fit"
+              >
+                Editar
+              </Link>) : null : null}
         <img
           src="/mock-reward.png"
           className="object-cover object-center h-[300px] w-full"

@@ -11,7 +11,7 @@ const ProfileHero = ({ userData }: { userData: JwtPayload | null }) => {
       <div className="flex justify-between items-center">
         <div className="flex items-center justify-center gap-6">
           <div className="bg-[#000] rounded-full w-24 h-24 flex justify-center items-center font-bold text-5xl">
-            <span className="font-epiBold pt-2 capitalize">
+            <span className="font-bold capitalize leading-9 pb-[2px]">
               {userData?.name.charAt(0).toUpperCase()}
             </span>
           </div>

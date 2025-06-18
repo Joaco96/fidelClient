@@ -7,10 +7,13 @@ import RecentActivity from "../shared/components/dashboard/RecentActivity";
 import useActivities from "../shared/hooks/useActivities";
 import { ActivityOptions, formatDate } from "../shared/utils/formatDate";
 import { useMemo } from "react";
+import { useAuth } from "../app/providers/AuthProvider";
 
 const MAX_RECENT_ACTIVITIES = 4;
 
 const Dashboard = () => {
+  const { userData } = useAuth();
+  const userRole = userData ? userData?.role : 0;
   const { response: rewardResponse } = useFetch({
     service: rewardService.getRewards,
   });
@@ -36,7 +39,7 @@ const Dashboard = () => {
         <div className="flex justify-between items-center w-full gap-6">
           <Link
             to="/app/profile"
-            className="w-1/2 p-3 border-1 border-white rounded-lg"
+            className="w-1/2 p-3 border-1 border-white rounded-lg hover:bg-gray-900"
           >
             <h4 className="text-lg font-medium">Historial de puntos</h4>
             <p>Ver tus transacciones recientes</p>
@@ -47,7 +50,7 @@ const Dashboard = () => {
           </Link>
           <Link
             to="/app/rewards"
-            className="w-1/2 p-3 border-1 border-white rounded-lg"
+            className="w-1/2 p-3 border-1 border-white rounded-lg hover:bg-gray-900"
           >
             <h4 className="text-lg font-medium">Reclamar beneficios</h4>
             <p>Ver beneficios destacados</p>
@@ -57,7 +60,7 @@ const Dashboard = () => {
             </p>
           </Link>
         </div>
-        <FeaturedRewards rewards={featuredRewards ?? null} />
+        <FeaturedRewards rewards={featuredRewards ?? null} userRole={userRole}/>
         <RecentActivity
           activities={sortedActivities.slice(0, MAX_RECENT_ACTIVITIES)}
         />

@@ -1,22 +1,22 @@
 @font-face {
-	font-family: 'Epilogue-Regular';
-	src: url(/fonts/Epilogue-Regular.ttf);
-	text-rendering: optimizeLegibility;
+  font-family: "Epilogue-Regular";
+  src: url(/fonts/Epilogue-Regular.ttf);
+  text-rendering: optimizeLegibility;
 }
 @font-face {
-	font-family: 'Epilogue-Bold';
-	src: url(/fonts/Epilogue-Bold.ttf);
-	text-rendering: optimizeLegibility;
+  font-family: "Epilogue-Bold";
+  src: url(/fonts/Epilogue-Bold.ttf);
+  text-rendering: optimizeLegibility;
 }
 @font-face {
-	font-family: 'Epilogue-Medium';
-	src: url(/fonts/Epilogue-Medium.ttf);
-	text-rendering: optimizeLegibility;
+  font-family: "Epilogue-Medium";
+  src: url(/fonts/Epilogue-Medium.ttf);
+  text-rendering: optimizeLegibility;
 }
 @font-face {
-	font-family: 'Epilogue-SemiBold';
-	src: url(/Epilogue-SemiBold.ttf);
-	text-rendering: optimizeLegibility;
+  font-family: "Epilogue-SemiBold";
+  src: url(/Epilogue-SemiBold.ttf);
+  text-rendering: optimizeLegibility;
 }
 
 @import "tailwindcss";
@@ -27,7 +27,6 @@
   --font-epiMed: Epilogue-Medium, "sans-serif";
   --font-epiSBold: Epilogue-SemiBold, "sans-serif";
 }
-
 
 :root {
   line-height: 1.5;
@@ -43,8 +42,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-#root{
+#root {
   width: 100%;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 body {
@@ -54,14 +57,22 @@ body {
 }
 
 /* Para Chrome, Safari, Edge, Opera */
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
 /* Para Firefox */
-input[type='number'] {
+input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
+}
+
+.tres-lineas {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

@@ -32,7 +32,7 @@ const DashboardHero = () => {
             </div>
             <Link
               to={"/app/ticket"}
-              className="cursor-pointer p-2 h-10 bg-amber-500 rounded-lg"
+              className="cursor-pointer p-2 h-10 bg-amber-500 hover:bg-amber-600 rounded-lg"
             >
               Nuevo ticket
             </Link>
@@ -49,7 +49,7 @@ const DashboardHero = () => {
             </div>
             <Link
               to={"/app/rewards/new"}
-              className="cursor-pointer p-2 h-10 bg-amber-500 rounded-lg"
+              className="cursor-pointer p-2 h-10 bg-amber-500 hover:bg-amber-600 rounded-lg"
             >
               Nuevo Beneficio
             </Link>

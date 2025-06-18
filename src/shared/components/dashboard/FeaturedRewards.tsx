@@ -2,7 +2,13 @@ import { Link } from "react-router";
 import { Reward } from "../../../entitites/Reward";
 import RewardsLayout from "../rewards/RewardsLayout";
 
-const FeaturedRewards = ({ rewards }: { rewards: Reward[] | null }) => {
+const FeaturedRewards = ({
+  rewards,
+  userRole,
+}: {
+  rewards: Reward[] | null;
+  userRole: number;
+}) => {
   return (
     <>
       <div className="flex flex-col justify-between items-start w-full m-auto mb-2">
@@ -12,7 +18,7 @@ const FeaturedRewards = ({ rewards }: { rewards: Reward[] | null }) => {
             Ver todos
           </Link>
         </div>
-        <RewardsLayout rewards={rewards} />
+        <RewardsLayout rewards={rewards} userRole={userRole}/>
       </div>
     </>
   );

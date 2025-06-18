@@ -15,8 +15,8 @@ const TicketCard = ({ ticket }: { ticket: Ticket }) => {
     <div>
       <div className="w-full flex justify-between pb-2">
         <div className="flex items-center justify-center gap-3 pr-4">
-          <div className="bg-[#000] rounded-full w-8 h-8 flex justify-center items-center font-bold text-2xl">
-            <span className="font-epiBold pt-2">
+          <div className="bg-[#000] rounded-full w-8 h-8 flex justify-center items-center font-bold text-xl">
+            <span className="font-bold leading-9 pb-[2px]">
               {user?.[0].name.charAt(0).toUpperCase()}
             </span>
           </div>

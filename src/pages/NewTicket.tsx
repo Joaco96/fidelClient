@@ -103,8 +103,8 @@ const NewTicket = () => {
           <div className="flex justify-between items-center">
             <div className="flex items-center justify-center gap-6">
               <div className="flex flex-col justify-between items-start h-full gap-1">
-                <h3 className="text-3xl font-epiBold">Seguimiento Tickets</h3>
-                <p>
+                <h3 className="text-3xl font-epiBold pt-2">Seguimiento de tickets</h3>
+                <p className="pb-2">
                   Buscá y agregá nuevos comprobantes con el DNI del usuario.
                 </p>
               </div>
@@ -151,6 +151,7 @@ const NewTicket = () => {
                   Numero de comprobante
                 </label>
                 <input
+                  maxLength={255}
                   type="text"
                   className="block w-full px-4 py-2 border rounded-md"
                   onChange={(e) => setTicketNum(e.target.value)}
