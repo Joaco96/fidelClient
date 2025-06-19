@@ -11,10 +11,10 @@ const FeaturedRewards = ({
 }) => {
   return (
     <>
-      <div className="flex flex-col justify-between items-start w-full m-auto mb-2">
-        <div className="flex justify-between w-full items-center">
+      <div className="flex flex-col justify-between items-start w-full m-auto">
+        <div className="flex justify-between w-full items-center pb-3">
           <h1 className="text-2xl font-epiBold">Beneficios Destacados</h1>
-          <Link to="/app/rewards" className="h-[45px] text-white py-2">
+          <Link to="/app/rewards" className="text-[#FC6F2F] font-medium">
             Ver todos
           </Link>
         </div>

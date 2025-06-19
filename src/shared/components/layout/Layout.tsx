@@ -10,7 +10,7 @@ const Layout = () => {
 
   return (
     <div className="w-full">
-      <div className="w-full flex items-center justify-between py-3 px-8 bg-white text-white fixed z-2 h-[70px]">
+      <div className="w-full flex items-center justify-between py-3 px-8 bg-white drop-shadow-md fixed z-2 h-[70px]">
         <NavLink to="/" className={"w-1/4"}>
           <LogoSvg />
         </NavLink>
@@ -20,7 +20,7 @@ const Layout = () => {
               <span
                 className={
                   isActive
-                    ? "text-amber-500 cursor-pointer border-b-3 pb-[22px] px-4 transition-all"
+                    ? "text-[#FC6F2F] cursor-pointer border-b-3 pb-[22px] px-4 transition-all"
                     : "text-[#000] cursor-pointer px-4 pb-[28px]"
                 }
               >
@@ -35,7 +35,7 @@ const Layout = () => {
                   <span
                     className={
                       isActive
-                        ? "text-amber-500 cursor-pointer border-b-3 pb-[22px] px-4 transition-all"
+                        ? "text-[#FC6F2F] cursor-pointer border-b-3 pb-[22px] px-4 transition-all"
                         : "text-[#000] cursor-pointer px-4 pb-[28px]"
                     }
                   >
@@ -51,7 +51,7 @@ const Layout = () => {
                   <span
                     className={
                       isActive
-                        ? "text-amber-500 cursor-pointer border-b-3 pb-[22px] px-4 transition-all"
+                        ? "text-[#FC6F2F] cursor-pointer border-b-3 pb-[22px] px-4 transition-all"
                         : "text-[#000] cursor-pointer px-4 pb-[28px]"
                     }
                   >
@@ -67,7 +67,7 @@ const Layout = () => {
                   <span
                     className={
                       isActive
-                        ? "text-amber-500 cursor-pointer border-b-3 pb-[22px] px-4 transition-all"
+                        ? "text-[#FC6F2F] cursor-pointer border-b-3 pb-[22px] px-4 transition-all"
                         : "text-[#000] cursor-pointer px-4 pb-[28px]"
                     }
                   >
@@ -81,7 +81,7 @@ const Layout = () => {
               <span
                 className={
                   isActive
-                    ? "text-amber-500 cursor-pointer border-b-3 pb-[22px] px-4 transition-all"
+                    ? "text-[#FC6F2F] cursor-pointer border-b-3 pb-[22px] px-4 transition-all"
                     : "text-[#000] cursor-pointer px-4 pb-[28px]"
                 }
               >
@@ -94,7 +94,7 @@ const Layout = () => {
               <span
                 className={
                   isActive
-                    ? "text-amber-500 cursor-pointer border-b-3 pb-[22px] px-4 transition-all"
+                    ? "text-[#FC6F2F] cursor-pointer border-b-3 pb-[22px] px-4 transition-all"
                     : "text-[#000] cursor-pointer px-4 pb-[28px]"
                 }
               >
@@ -107,20 +107,20 @@ const Layout = () => {
           {userData ? (
             <NavLink to="/app/profile">
               <div className="flex items-center justify-center gap-2 pr-4">
-                <div className="bg-[#000] rounded-full w-8 h-8 flex justify-center items-center font-bold text-xl">
-                  <span className="font-bold leading-9 pb-[2px]">
+                <div className="bg-[#515838] rounded-full w-8 h-8 flex justify-center items-center font-bold text-xl">
+                  <span className="font-bold leading-9 pb-[2px] text-white">
                     {userData?.name.charAt(0).toUpperCase()}
                   </span>
                 </div>
                 <div className="flex flex-col justify-between items-start h-full gap-1">
-                  <h3 className="text-[#000] capitalize">{userData.name}</h3>
+                  <h3 className="text-black capitalize">{userData.name}</h3>
                 </div>
               </div>
             </NavLink>
           ) : null}
           <button
             onClick={logout}
-            className=" text-[#000] cursor-pointer disabled:opacity-50"
+            className=" text-black cursor-pointer disabled:opacity-50"
           >
             Logout
           </button>

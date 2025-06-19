@@ -11,9 +11,9 @@ const UserPoints = ({ userData }: { userData: JwtPayload | null }) => {
   });
 
   return (
-    <div className="px-4 pt-3 pb-4 rounded-lg bg-[#1A1A1A] flex flex-col">
-      <p>Balance disponible</p>
-      <h6 className="text-end text-4xl font-bold">
+    <div className="px-4 pt-3 pb-4 rounded-lg bg-white flex flex-col shadow-sm">
+      <p className="text-[#515838] font-medium">Balance disponible</p>
+      <h6 className="text-end text-4xl font-bold text-[#FC6F2F]">
         {userPointsResponse ? NumberFormatter.format(userPointsResponse.points_balance) : "-"}
       </h6>
     </div>

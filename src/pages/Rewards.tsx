@@ -53,14 +53,14 @@ const Rewards = () => {
                 <h3 className="text-3xl font-epiBold pt-2">
                   Gestión de beneficios
                 </h3>
-                <p className="pb-2">
+                <p className="font-medium">
                   Editá y administrá los beneficios en el catalogo.
                 </p>
               </>
             ) : (
               <>
                 <h3 className="text-3xl font-epiBold">Beneficios</h3>
-                <p>Buscá y canjeá beneficios con tus puntos disponibles.</p>
+                <p className="font-medium">Buscá y canjeá beneficios con tus puntos disponibles.</p>
               </>
             )}
           </div>
@@ -68,7 +68,7 @@ const Rewards = () => {
         {userRole >= RoleIds.ADMIN ? (
           <Link
             to={"/app/rewards/new"}
-            className="cursor-pointer p-2 h-10 bg-amber-500 rounded-lg"
+            className="cursor-pointer p-2 h-10 bg-[#FC6F2F]  hover:bg-[#db4500] text-white rounded-lg"
           >
             Nuevo Beneficio
           </Link>
@@ -77,7 +77,7 @@ const Rewards = () => {
         )}
       </div>
       {userRole < RoleIds.ADMIN ? (
-        <div className="flex flex-col justify-between items-start m-auto p-4 bg-amber-800 rounded-lg mt-5">
+        <div className="flex flex-col justify-between items-start m-auto p-8 text-[#515838] bg-[#FFE9D1] rounded-lg mt-5">
           <h1 className="text-xl font-epiBold pb-3">Beneficios destacados</h1>
           <RewardsLayout
             rewards={featuredRewards ?? null}

@@ -81,7 +81,7 @@ export const router = createBrowserRouter([
           {
             path: ":user_id",
             element: (
-              <ProtectedRoute minimumNeededRole={RoleIds.ADMIN}>
+              <ProtectedRoute>
                 <ProfileDetail />
               </ProtectedRoute>
             ),
