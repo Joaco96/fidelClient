@@ -186,7 +186,7 @@ const NewTicket = () => {
                 />{" "}
                 <div className="rounded-lg flex justify-between items-center p-5 mt-5 bg-[#FFE9D1]">
                   <div>
-                    <h6 className="font-bold">Puntos a asignar al usuario</h6>
+                    <h6 className="font-bold text-lg">Puntos a asignar al usuario</h6>
                     <p>
                       {pointsRate?.rate ? pointsRate.rate * 10 : 0} puntos por
                       cada $10 gastados

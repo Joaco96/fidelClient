@@ -61,7 +61,7 @@ const RewardCheckout = () => {
   };
 
   const handleNewRedemption = async () => {
-    if (balanceRestante < 0) {
+    if (balanceRestante < 0 && balancePuntos < puntosRequeridos) {
       toast.error("Tu balance de puntos es insuficiente");
       return;
     } else {
@@ -72,53 +72,57 @@ const RewardCheckout = () => {
           quantity,
         });
         handleApiResponse(data);
-        navigate(`/app/rewards/checkout/result/${data.response?.id}`);
+        if (data.response) {
+          navigate(`/app/rewards/checkout/result/${data.response?.id}`);
+        }
       }
     }
   };
 
   return (
-    <div className="max-w-[70dvw] m-auto mb-6 relative top-5">
-      <Link to="/app/rewards" className="h-[45px] text-white">
+    <div className="max-w-[70dvw] mx-auto relative top-6">
+      <Link to="/app/rewards" className="h-[45px] text-[#515838] font-medium hover:underline">
         Vovler a Beneficios
       </Link>
-      <div className="flex flex-col relative rounded-lg overflow-hidden mt-6">
-        {userData?.role ? userData?.role >= RoleIds.ADMIN ? (
-              <Link
-                to={`/app/rewards/edit/${reward_id}`}
-                className="absolute top-4 right-4 bg-amber-500 hover:bg-amber-600 flex rounded-md px-[24px] pt-[8px] pb-[8px] w-fit"
-              >
-                Editar
-              </Link>) : null : null}
+      <div className="flex flex-col relative rounded-lg overflow-hidden mt-6 shadow-sm">
+        {userData?.role ? (
+          userData?.role >= RoleIds.ADMIN ? (
+            <Link
+              to={`/app/rewards/edit/${reward_id}`}
+              className="absolute top-4 right-4 bg-[#FC6F2F] hover:bg-[#db4500] text-white flex rounded-md px-[24px] pt-[8px] pb-[8px] w-fit"
+            >
+              Editar
+            </Link>
+          ) : null
+        ) : null}
         <img
           src="/mock-reward.png"
           className="object-cover object-center h-[300px] w-full"
           alt="imagen"
         />
-        <div className="w-full flex justify-between items-center bg-amber-100 p-6">
-          <h3 className="text-gray-700 text-3xl font-epiBold pt-1">
-            {reward?.[0].name}
-          </h3>
-          <div className=" text-gray-700 text-end">
+        <div className="w-full flex justify-between items-center bg-white p-6">
+          <h3 className="text-3xl font-epiBold pt-1">{reward?.[0].name}</h3>
+          <div className="text-end">
             <p>Puntos requeridos</p>
-            <h6 className="text-end text-3xl font-epiBold">
-              {reward ? NumberFormatter.format(reward?.[0].points_cost) : "-"} pts
+            <h6 className="text-end text-3xl font-epiBold text-[#FC6F2F]">
+              {reward ? NumberFormatter.format(reward?.[0].points_cost) : "-"}{" "}
+              pts
             </h6>
           </div>
         </div>
-        <div className="bg-amber-100 w-full px-6 pb-6 flex gap-10">
+        <div className="bg-white w-full px-6 pb-6 flex gap-10">
           <div className="w-1/2 flex flex-col gap-6">
-            <div className="w-full text-gray-700">
-              <h5 className="text-lg font-epiBold">Descripcion</h5>
+            <div className="w-full ">
+              <h5 className="text-lg font-bold">Descripcion</h5>
               <p className="">{reward ? reward?.[0].description : "-"}</p>
             </div>
-            <div className="w-full text-gray-700">
-              <h5 className="text-lg font-epiBold">Stock</h5>
+            <div className="w-full ">
+              <h5 className="text-lg font-bold">Stock</h5>
               <p className="">
                 {reward ? reward?.[0].stock_balance : "-"} unidades
               </p>
             </div>
-            <div className="w-full text-gray-700 border-1 border-gray-700 p-3 rounded-lg flex flex-col gap-2">
+            <div className="w-full bg-[#FFE9D1] p-3 rounded-lg flex flex-col gap-2">
               <h5 className="text-lg font-epiBold">Detalles del canje</h5>
               <div className="flex gap-2">
                 <svg
@@ -197,43 +201,43 @@ const RewardCheckout = () => {
             </div>
           </div>
           <div className="w-1/2 ">
-            <div className="w-full bg-amber-200 text-gray-700 border-1 border-gray-700 p-3 rounded-lg">
-              <h5 className="text-lg font-epiBold">Canjear beneficio</h5>
-              <div className="flex flex-col gap-2">
+            <div className="w-full bg-[#f8f8f8] p-5 rounded-lg">
+              <h5 className="text-lg font-epiBold pb-4">Canjear beneficio</h5>
+              <div className="flex flex-col gap-4">
                 <h6 className="font-medium">Seleccionar cantidad</h6>
-                <div className="flex items-center gap-10">
+                <div className="flex items-center gap-4">
                   <button
                     onClick={handleSubstract}
-                    className=" text-white text-lg bg-gray-700 px-2 cursor-pointer outline-none rounded-full"
+                    className="text-xl pb-1 font-bold bg-[#e9e9e9] hover:bg-[#dbdbdb] text-[#515838] w-8 h-8 cursor-pointer outline-none rounded-full"
                   >
                     -
                   </button>
-                  <p className="border-1 border-gray-700 px-5 rounded-lg bg-white">
+                  <p className="border-1 border-[#e0e0e0] px-7 h-8 pt-0.5 rounded-lg bg-white">
                     {quantity}
                   </p>
                   <button
                     onClick={handleAdd}
-                    className="text-white text-lg bg-gray-700 px-2 cursor-pointer outline-none rounded-full"
+                    className="text-xl pb-1 font-bold bg-[#e9e9e9] hover:bg-[#dbdbdb] text-[#515838] w-8 h-8 cursor-pointer outline-none rounded-full"
                   >
                     +
                   </button>
                 </div>
-                <div className="flex justify-between items-center pt-2 border-top border-t-1">
-                  <h6 className="font-medium">Tu balane de puntos</h6>
-                  <p>{NumberFormatter.format(balancePuntos)} pts</p>
+                <div className="flex justify-between items-center pt-4 border-top border-t-1 border-[#e0e0e0]">
+                  <h6 className="font-medium text-black">Tu balance de puntos</h6>
+                  <p className="text-black font-medium">{NumberFormatter.format(balancePuntos)} pts</p>
                 </div>
                 <div className="flex justify-between items-center">
                   <h6 className="font-medium">Puntos requeridos</h6>
-                  <p>-{NumberFormatter.format(puntosRequeridos)} pts</p>
+                  <p className="text-[#FC6F2F] font-medium">{NumberFormatter.format(puntosRequeridos)} pts</p>
                 </div>
-                <div className="flex justify-between items-center pt-2 border-top border-t-1">
-                  <h6 className="font-medium">Tu balane de puntos</h6>
-                  <p>{NumberFormatter.format(balanceRestante)} pts</p>
+                <div className="flex justify-between items-center pt-4 border-top border-t-1 border-[#e0e0e0]">
+                  <h6 className="font-medium">Balance restante</h6>
+                  <p className="text-black font-medium">{NumberFormatter.format(balanceRestante)} pts</p>
                 </div>
                 <button
                   disabled={!reward || !userPointsResponse || isPending}
                   onClick={handleNewRedemption}
-                  className="text-white text-lg bg-gray-700 px-2 cursor-pointer outline-none rounded-full"
+                  className="text-white text-lg bg-[#FC6F2F] hover:bg-[#db4500] px-2 py-2 w-full cursor-pointer outline-none rounded-lg mt-5"
                 >
                   {isPending ? "Confirmando..." : "Confirmar canje"}
                 </button>
@@ -242,6 +246,7 @@ const RewardCheckout = () => {
           </div>
         </div>
       </div>
+      <div className="h-20"></div>
     </div>
   );
 };

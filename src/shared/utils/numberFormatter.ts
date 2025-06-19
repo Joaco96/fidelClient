@@ -31,7 +31,6 @@ export class NumberFormatter {
     const intPart = isNegative ? intPartRaw.slice(1) : intPartRaw;
 
     const intFormatted = intPart.replace(this.THOUSANDS_SEPARATOR_REGEX, ".");
-    if (decimalPart === "00") return intFormatted;
-    return `${isNegative ? "-" : ""}${intFormatted},${decimalPart}`;
+    return `${isNegative ? "-" : ""}${intFormatted}${(decimalPart === "00" ? "" : "," + decimalPart)}`;
   };
 }
