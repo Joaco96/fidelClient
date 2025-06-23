@@ -59,7 +59,7 @@ const Users = () => {
 
   return (
     <div className="max-w-[70dvw] m-auto rounded-lg pb-8 top-5 relative pt-3">
-      <div className="flex justify-between items-center pb-4">
+      <div className="flex justify-between items-center">
         <div className="flex items-center justify-center gap-6">
           <div className="flex flex-col justify-between items-start h-full gap-1">
             <h3 className="text-3xl font-epiBold pt-2">Gestión de usuarios</h3>
@@ -72,8 +72,8 @@ const Users = () => {
           Volver al dashboard
         </Link>
       </div>
-      <div className="w-full items-center justify-between flex">
-        <div className="flex gap-4 items-center justify-start w-1/2">
+      <div className="w-full items-end justify-between flex">
+        <div className="flex gap-4 justify-start w-1/2">
           {roles.map((rol) => {
             return (
               <button

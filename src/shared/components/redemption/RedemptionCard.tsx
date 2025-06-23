@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { redemptionService } from "../../api/redemptionService";
 import useFetch from "../../hooks/useFetch";
 import { ActivityOptions, formatDate } from "../../utils/formatDate";
+import ErrorPage from "../../../pages/ErrorPage";
 
 const RedemptionCard = ({ redemptionId }: { redemptionId?: string }) => {
   const { response: redemption, isPending } = useFetch({
@@ -200,9 +201,9 @@ const RedemptionCard = ({ redemptionId }: { redemptionId?: string }) => {
       </div>
     </div>
   ) : isPending ? (
-    <p className="max-w-[70vw] m-auto text-center pt-8">Cargando canje...</p>
+    <div className="h-[150px] max-w-[70vw] m-auto flex justify-center items-center pb-4 font-medium text-lg">Cargando canje...</div>
   ) : (
-    <p className="max-w-[70vw] m-auto text-center pt-8">Canje no encontrado</p>
+    <ErrorPage />
   );
 };
 

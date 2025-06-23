@@ -30,15 +30,13 @@ const FindUser = ({
   return (
     <div className="flex flex-col gap-3 w-full">
       <div>
-        {selectedUser ? (
           <label className="block text-sm my-2 font-medium">
             Encontrar Usuario por DNI
           </label>
-        ) : null}
         <div className="flex gap-3">
           <input
             type="text"
-            className="block w-full px-4 py-2 border rounded-md border-[#72727260] bg-white"
+            className="block w-full px-4 py-2 border rounded-md border-[#72727260] focus:border-[#72727260] bg-white"
             disabled={loading || !!selectedUser}
             onChange={(e) => setDni(e.target.value)}
             value={dni}

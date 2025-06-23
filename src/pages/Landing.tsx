@@ -20,16 +20,16 @@ const Landing = () => {
           </NavLink>
         </div>
         {userData ? (
-          <div className="cursor-pointer flex gap-4 w-1/4 justify-end items-center">
+          <div className="cursor-pointer flex w-1/4 justify-end items-center">
             <NavLink to="/app/profile">
-              <div className="flex items-center justify-center gap-2">
-                <div className="bg-[#000] rounded-full w-8 h-8 flex justify-center items-center font-bold text-2xl">
-                  <span className="font-epiBold pt-2">
+              <div className="flex items-center justify-center gap-2 pr-4">
+                <div className="bg-[#515838] rounded-full w-8 h-8 flex justify-center items-center font-bold text-xl">
+                  <span className="font-bold leading-9 pb-[2px] text-white">
                     {userData?.name.charAt(0).toUpperCase()}
                   </span>
                 </div>
                 <div className="flex flex-col justify-between items-start h-full gap-1">
-                  <h3 className="text-[#000] capitalize">{userData.name}</h3>
+                  <h3 className="text-black capitalize">{userData.name}</h3>
                 </div>
               </div>
             </NavLink>
