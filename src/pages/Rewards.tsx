@@ -9,7 +9,7 @@ import { RoleIds } from "../entitites/Role";
 
 const Rewards = () => {
   const { userData } = useAuth();
-  const { response: rewardResponse } = useFetch({
+  const { response: rewardResponse, isPending } = useFetch({
     service: rewardService.getRewards,
   });
   const userRole = userData ? userData?.role : 0;
@@ -60,7 +60,9 @@ const Rewards = () => {
             ) : (
               <>
                 <h3 className="text-3xl font-epiBold">Beneficios</h3>
-                <p className="font-medium">Buscá y canjeá beneficios con tus puntos disponibles.</p>
+                <p className="font-medium">
+                  Buscá y canjeá beneficios con tus puntos disponibles.
+                </p>
               </>
             )}
           </div>
@@ -76,6 +78,7 @@ const Rewards = () => {
           <UserPoints userData={userData} />
         )}
       </div>
+
       {userRole < RoleIds.ADMIN ? (
         <div className="flex flex-col justify-between items-start m-auto p-8 text-[#515838] bg-[#FFE9D1] rounded-lg mt-5">
           <h1 className="text-xl font-epiBold pb-3">Beneficios destacados</h1>
@@ -85,9 +88,15 @@ const Rewards = () => {
           />
         </div>
       ) : null}
-      <div className="mt-8">
-        <RewardsLayout rewards={rewards ?? null} userRole={userRole} />
-      </div>
+      {!isPending ? (
+        <div className="mt-8">
+          <RewardsLayout rewards={rewards ?? null} userRole={userRole} />
+        </div>
+      ) : (
+        <div className="mt-8 h-[82px] flex justify-center items-center pb-4 font-medium text-lg">
+          Cargando beneficios...
+        </div>
+      )}
     </div>
   );
 };

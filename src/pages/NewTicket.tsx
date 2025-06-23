@@ -19,7 +19,7 @@ const NewTicket = () => {
   const { userData } = useAuth();
   const { response: users } = useFetch({ service: userService.getUsers });
   const { response: stores } = useFetch({ service: storeService.getStores });
-  const { response: tickets, serviceCall: getTickets } = useFetch({
+  const { response: tickets, serviceCall: getTickets, isPending } = useFetch({
     service: ticketService.getTickets,
   });
   const { response: pointsRate } = useFetch({
@@ -210,9 +210,9 @@ const NewTicket = () => {
               <h4 className="text-xl font-semibold">Historial reciente</h4>
             </div>
             <div className="flex flex-col gap-4 px-4 pt-4">
-              {lastTickets?.map((item, index) => {
+              {!isPending ? lastTickets?.map((item, index) => {
                 return <TicketCard key={item.id} ticket={item} index={index} lenght={lastTickets.length}/>;
-              })}
+              }) : <div className="h-[82px] flex justify-center items-center pb-4 font-medium text-lg">Cargando historial...</div>}
             </div>
           </div>
         </div>

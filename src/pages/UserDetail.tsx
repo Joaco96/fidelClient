@@ -11,7 +11,7 @@ import { toast } from "sonner";
 
 const UserDetail = () => {
   const { user_id } = useParams();
-  const { response: user, serviceCall: getUsersById } = useFetch({
+  const { response: user, serviceCall: getUsersById, isPending: userPending } = useFetch({
     service: user_id ? () => userService.getUserById(user_id) : undefined,
   });
   const {
@@ -66,7 +66,7 @@ const UserDetail = () => {
         </Link>
       </div>
       <div className="flex flex-col gap-6 bg-white rounded-lg shadow-sm p-6">
-        <div className="flex">
+        {!userPending ? (<><div className="flex">
           <div className="w-1/2">
             <h4 className="text-lg font-epiBold text-gray-700">Nombre</h4>
             <p>{user ? user?.[0].name : "..."}</p>
@@ -122,7 +122,8 @@ const UserDetail = () => {
           >
             {isPending ? "Cambiando..." : "Cambiar rol"}
           </button>
-        </div>
+        </div></>) : <div className="h-[120px] flex justify-center items-center text-lg font-medium">Cargando usuario...</div>}
+        
       </div>
     </div>
   );
