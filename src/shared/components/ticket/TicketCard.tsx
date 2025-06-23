@@ -4,7 +4,15 @@ import { userService } from "../../api/userService";
 import { formatDate, TicketOptions } from "../../utils/formatDate";
 import { NumberFormatter } from "../../utils/numberFormatter";
 
-const TicketCard = ({ ticket }: { ticket: Ticket }) => {
+const TicketCard = ({
+  ticket,
+  index,
+  lenght,
+}: {
+  ticket: Ticket;
+  index: number;
+  lenght: number;
+}) => {
   const user_id = ticket.user_id;
 
   const { response: user } = useFetch({
@@ -12,7 +20,11 @@ const TicketCard = ({ ticket }: { ticket: Ticket }) => {
   });
 
   return (
-    <div className="border-b-1 pb-4 border-[#e9e9e9]">
+    <div
+      className={`pb-4 ${
+        lenght - 1 > index ? "border-b-1 border-[#e9e9e9]" : ""
+      }`}
+    >
       <div className="w-full flex justify-between pb-2">
         <div className="flex items-center justify-center gap-3 pr-4">
           <div className="bg-[#FC6F2F] rounded-full w-10 h-10 flex justify-center items-center font-bold text-xl">
@@ -24,7 +36,9 @@ const TicketCard = ({ ticket }: { ticket: Ticket }) => {
             <h3 className="capitalize leading-5 font-medium text-lg">
               {user?.[0].name}
             </h3>
-            <h3 className="leading-4 text-gray-500 font-medium">Comprobante #{ticket.id}</h3>
+            <h3 className="leading-4 text-gray-500 font-medium">
+              Comprobante #{ticket.id}
+            </h3>
           </div>
         </div>
         <div className="flex items-center">

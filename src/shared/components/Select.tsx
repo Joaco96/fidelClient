@@ -11,13 +11,13 @@ const Select = ({
 }) => {
   return (
     <>
-      <label className="block my-2 text-sm font-medium pt-2">
+      <label className="block text-sm font-medium pb-1">
         {label}
       </label>
       <select
         ref={ref}
-        id="countries"
-        className=" border-1 border-[#72727260] text-sm rounded-lg  block w-full p-2"
+        id={label}
+        className=" border-1 border-[#72727260] text-sm rounded-lg  block w-full p-2 bg-white focus:border-[#72727260] active:border-[#72727260]"
       >
         <option value="" defaultValue="">{placeholder}</option>
         {items?.map((item) => {

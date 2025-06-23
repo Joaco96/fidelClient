@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useAuth } from "../app/providers/AuthProvider";
-import { RoleIds } from "../entitites/Role";
+import { roleNames } from "../entitites/Role";
 import { ticketService } from "../shared/api/ticketService";
 import { userService } from "../shared/api/userService";
 import FindUser from "../shared/components/ticket/FindUser";
@@ -112,11 +112,7 @@ const NewTicket = () => {
               </div>
             </div>
             <div className="bg-[#FC6F2F] text-white flex text-sm rounded-2xl px-[14px] pt-[3px] pb-[4px] w-fit">
-              {userData?.role === RoleIds.USER
-                ? "Usuario"
-                : userData?.role === RoleIds.EMPLOYEE
-                ? "Empleado"
-                : "Administrador"}
+              {userData?.role ? roleNames[userData?.role] : "..."}
             </div>
           </div>
           <div className="flex w-full gap-6">
@@ -152,7 +148,6 @@ const NewTicket = () => {
               loading={userPending}
               resetUser={() => setUser(null)}
             />
-
             {user ? (
               <>
                 <label className="block my-2 text-sm font-medium pt-2">
@@ -171,7 +166,7 @@ const NewTicket = () => {
                 </label>
                 <input
                   type="number"
-                  className="block w-full px-4 py-2 border rounded-md no-arrows border-[#72727260]"
+                  className="block w-full px-4 py-2 border rounded-md no-arrows border-[#72727260] mb-4"
                   onChange={(e) => setTicketAmount(Number(e.target.value))}
                   value={ticketAmount}
                   placeholder="$"
@@ -214,9 +209,9 @@ const NewTicket = () => {
             <div className="border-b-1 border-[#e9e9e9] p-4">
               <h4 className="text-xl font-semibold">Historial reciente</h4>
             </div>
-            <div className="flex flex-col gap-4 p-4">
-              {lastTickets?.map((item) => {
-                return <TicketCard key={item.id} ticket={item} />;
+            <div className="flex flex-col gap-4 px-4 pt-4">
+              {lastTickets?.map((item, index) => {
+                return <TicketCard key={item.id} ticket={item} index={index} lenght={lastTickets.length}/>;
               })}
             </div>
           </div>
