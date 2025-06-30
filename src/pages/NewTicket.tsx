@@ -19,7 +19,11 @@ const NewTicket = () => {
   const { userData } = useAuth();
   const { response: users } = useFetch({ service: userService.getUsers });
   const { response: stores } = useFetch({ service: storeService.getStores });
-  const { response: tickets, serviceCall: getTickets, isPending } = useFetch({
+  const {
+    response: tickets,
+    serviceCall: getTickets,
+    isPending,
+  } = useFetch({
     service: ticketService.getTickets,
   });
   const { response: pointsRate } = useFetch({
@@ -71,6 +75,7 @@ const NewTicket = () => {
       toast.error("No encontramos ningún usuario con ese DNI");
     }
   };
+
   const handleNewTicket = async () => {
     if (ticketAmount < 0) {
       toast.warning("Ingresar un monto gastado mayor a 0");
@@ -85,10 +90,13 @@ const NewTicket = () => {
         });
         handleApiResponse(data);
         if (data.response) {
-          setTicketAmount(0);
-          setTicketNum("");
-          setUser(null);
-          getTickets({});
+//      TODO ver que hacer porque sucede demasiado rapido
+          setTimeout(() => {
+            setTicketAmount(0);
+            setTicketNum("");
+            setUser(null);
+            getTickets({});
+          }, 1500);
         }
       } else {
         toast.warning("Hay campos incompletos");
@@ -181,7 +189,9 @@ const NewTicket = () => {
                 />{" "}
                 <div className="rounded-lg flex justify-between items-center p-5 mt-5 bg-[#FFE9D1]">
                   <div>
-                    <h6 className="font-bold text-lg">Puntos a asignar al usuario</h6>
+                    <h6 className="font-bold text-lg">
+                      Puntos a asignar al usuario
+                    </h6>
                     <p>
                       {pointsRate?.rate ? pointsRate.rate * 10 : 0} puntos por
                       cada $10 gastados
@@ -210,9 +220,22 @@ const NewTicket = () => {
               <h4 className="text-xl font-semibold">Historial reciente</h4>
             </div>
             <div className="flex flex-col gap-4 px-4 pt-4">
-              {!isPending ? lastTickets?.map((item, index) => {
-                return <TicketCard key={item.id} ticket={item} index={index} lenght={lastTickets.length}/>;
-              }) : <div className="h-[82px] flex justify-center items-center pb-4 font-medium text-lg">Cargando historial...</div>}
+              {!isPending ? (
+                lastTickets?.map((item, index) => {
+                  return (
+                    <TicketCard
+                      key={item.id}
+                      ticket={item}
+                      index={index}
+                      lenght={lastTickets.length}
+                    />
+                  );
+                })
+              ) : (
+                <div className="h-[82px] flex justify-center items-center pb-4 font-medium text-lg">
+                  Cargando historial...
+                </div>
+              )}
             </div>
           </div>
         </div>
