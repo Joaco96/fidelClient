@@ -6,3 +6,7 @@ export interface JwtPayload {
   dni: string,
   createdAt: Date;
 }
+
+export interface JwtRedemptionPayload {
+  id: string;
+}

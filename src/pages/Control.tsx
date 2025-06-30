@@ -5,13 +5,16 @@ import useFetch from "../shared/hooks/useFetch";
 import ErrorPage from "./ErrorPage";
 import { useConfirmModal } from "../shared/hooks/useConfirmModal";
 import { toast } from "sonner";
+import { decodeJWT } from "../shared/utils/decodeJwt";
+import { JwtRedemptionPayload } from "../shared/types/jwtPayload";
 
 const Control = () => {
-  const { redemption_id } = useParams();
+  const { redemption_jwt } = useParams();
+  const redemptionId = redemption_jwt ? decodeJWT<JwtRedemptionPayload>(redemption_jwt)?.id : "";
   const navigate = useNavigate();
   const { response: redemption, isPending } = useFetch({
-    service: redemption_id
-      ? () => redemptionService.getRedemptionsById(redemption_id)
+    service: redemptionId
+      ? () => redemptionService.getRedemptionsById(redemptionId)
       : undefined,
   });
 
@@ -32,15 +35,15 @@ const Control = () => {
       message: "Esta acción cambiara el estado permanentemente.",
       children: null,
       onConfirm: async () => {
-        if (redemption_id) {
+        if (redemptionId) {
           const data = await updateRedemptionStatus({
-            id: redemption_id,
+            id: redemptionId,
             is_delivered: "true",
           });
           handleApiResponse(data);
           if (data.response) {
             toast.success("Estado del canje modificado con éxito");
-            navigate(`/app/redemptions/${redemption_id}`);
+            navigate(`/app/redemptions/${redemptionId}`);
           }
         }
       },
