@@ -169,15 +169,15 @@ export const router = createBrowserRouter([
               </ProtectedRoute>
             ),
           },
-          {
-            path: "control/:redemption_jwt",
-            element: (
-              <ProtectedRoute minimumNeededRole={RoleIds.EMPLOYEE}>
-                <Control />
-              </ProtectedRoute>
-            ),
-          },
         ],
+      },
+      {
+        path: "control/:redemption_jwt",
+        element: (
+          <ProtectedRoute minimumNeededRole={RoleIds.EMPLOYEE}>
+            <Control />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "stores",
