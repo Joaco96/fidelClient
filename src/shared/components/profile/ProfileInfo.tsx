@@ -7,6 +7,10 @@ import { useConfirmModal } from "../../hooks/useConfirmModal";
 import { userService } from "../../api/userService";
 import useFetch from "../../hooks/useFetch";
 import { useAuth } from "../../../app/providers/AuthProvider";
+import { User } from "../../../entitites/User";
+import { useRef } from "react";
+import PasswordInput from "../PasswordInput";
+import { toast } from "sonner";
 
 const ProfileInfo = ({
   userData,
@@ -33,12 +37,24 @@ const ProfileInfo = ({
     fetchOnRender: false,
   });
 
+  const {
+    serviceCall: updateUser,
+    isPending: updateUserPending,
+  } = useFetch({
+    service: (params: { id: string; body: Partial<User> }) =>
+      userService.updateUser(params.id, params.body),
+    fetchOnRender: false,
+  });
+
   const { openModal, ConfirmModalComponent } = useConfirmModal();
+  const passwordRef = useRef<string>("");
+  const repeatedPasswordRef = useRef<string>("");
 
   const handleDeleteUser = () => {
     openModal({
       title: "Eliminar cuenta",
       message: "Esta acción eliminará el elemento permanentemente.",
+      children: null,
       onConfirm: async () => {
         if (userData) {
           const data = await deleteUser(userData?.userId);
@@ -46,6 +62,46 @@ const ProfileInfo = ({
           if (data.response) {
             logout();
           }
+        }
+      },
+    });
+  };
+
+  const handleChangeUserPassword = () => {
+    openModal({
+      title: "Modificar contraseña",
+      message: "Esta acción modificará la contraseña permanentemente.",
+      children: (
+        <>
+          <PasswordInput
+            onPasswordChange={(value) => {
+              passwordRef.current = value;
+            }}
+            label={"Nueva contraseña"}
+          />
+          <PasswordInput
+            onPasswordChange={(value) => {
+              repeatedPasswordRef.current = value;
+            }}
+            label={"Repetir contraseña"}
+          />
+        </>
+      ),
+      onConfirm: async () => {
+        if (
+          passwordRef.current &&
+          passwordRef.current === repeatedPasswordRef.current &&
+          userData?.userId
+        ) {
+          const data = await updateUser({
+            id: userData.userId,
+            body: { password: passwordRef.current },
+          });
+          if (data.response) {
+            toast.success("Contraseña modificada con éxito");
+          }
+        } else {
+          toast.warning("Las contraseñas deben ser iguales");
         }
       },
     });
@@ -65,7 +121,7 @@ const ProfileInfo = ({
         <div className="p-4 bg-white shadow-sm rounded-lg w-1/3">
           <h4 className="font-medium">Beneficios reclamados</h4>
           <p className="text-3xl font-bold">
-            {redemptions?.length ? redemptions?.length : "-"}
+            {redemptions?.length ? redemptions?.length : "0"}
           </p>
           <p className="text-sm">Total de beneficios</p>
         </div>
@@ -82,7 +138,7 @@ const ProfileInfo = ({
           <div className="flex justify-between items-center border-b-1 border-[#e9e9e9] p-4">
             <h4 className="text-xl font-semibold">Informacion personal</h4>
             <Link
-              to={`/app/profile/${userData?.userId}`}
+              to={`/app/profile/edit`}
               className="bg-[#FC6F2F] text-white hover:bg-[#db4500] flex rounded-md px-[20px] pt-[5px] pb-[5px] w-fit"
             >
               Editar
@@ -107,9 +163,13 @@ const ProfileInfo = ({
           <div className="border-b-1 border-[#e9e9e9] p-4">
             <h4 className="text-xl font-semibold">Preferencias y Seguridad</h4>
           </div>
-          <div className="flex flex-col items-center gap-2  p-4">
-            <button className="font-medium py-2 cursor-pointer bg-[#e9e9e9] hover:bg-[#dbdbdb] w-full rounded-lg text-[#515838]">
-              Cambiar contraseña
+          <div className="flex flex-col items-center gap-2 p-4">
+            <button
+              disabled={updateUserPending}
+              onClick={handleChangeUserPassword}
+              className="font-medium py-2 cursor-pointer bg-[#e9e9e9] hover:bg-[#dbdbdb] w-full rounded-lg text-[#515838]"
+            >
+              {updateUserPending ? "Cambiando..." : "Cambiar contraseña"}
             </button>
             <button
               disabled={isPending}
