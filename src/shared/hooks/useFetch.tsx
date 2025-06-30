@@ -51,9 +51,12 @@ function useFetch<T, K>({
     return serviceResponse;
   };
 
-  function handleApiResponse<T>(data: ServiceCallResponse<T>) {
+  function handleApiResponse<T>(
+    data: ServiceCallResponse<T>,
+    withSuccessHandling = true
+  ) {
     if (data.response && typeof (data.response as any).message === "string") {
-      toast.success((data.response as any).message);
+      if (withSuccessHandling) toast.success((data.response as any).message);
     } else {
       if (data.error?.message) toast.error(data.error?.message);
       else {

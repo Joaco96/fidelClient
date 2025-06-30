@@ -11,8 +11,6 @@ const RedemptionCard = ({ redemptionId }: { redemptionId?: string }) => {
       : undefined,
   });
 
-  console.log(redemption);
-
   return redemption ? (
     <div className="flex flex-col gap-8 max-w-[70vw] m-auto py-8">
       <div className="flex flex-col gap-4 bg-white rounded-lg shadow-sm p-6">

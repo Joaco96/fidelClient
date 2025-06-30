@@ -1,9 +1,10 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, ReactNode } from "react";
 import ConfirmModal from "../components/ConfirmModal";
 
 interface ConfirmOptions {
   title: string;
   message: string;
+  children: ReactNode;
   onConfirm: () => void;
 }
 
@@ -12,6 +13,7 @@ export const useConfirmModal = () => {
   const [options, setOptions] = useState<ConfirmOptions>({
     title: "",
     message: "",
+    children: null,
     onConfirm: () => {},
   });
   
@@ -34,9 +36,11 @@ export const useConfirmModal = () => {
       isOpen={isOpen}
       title={options.title}
       message={options.message}
+      children={options.children}
       onCancel={closeModal}
       onConfirm={handleConfirm}
-    />
+    >
+    </ConfirmModal>
   );
 
   return { openModal, ConfirmModalComponent };
