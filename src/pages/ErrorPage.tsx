@@ -8,7 +8,7 @@ const ErrorPage = () => {
       </div>
       <div className="flex flex-col w-1/2">
         <h2 className="text-6xl font-epiBold">Oops!</h2>
-        <h4 className="text-3xl font-epiBold pt-2">404 - Page not found</h4>
+        <h4 className="text-3xl font-epiBold pt-2">404 - Pagina no encontrada</h4>
         <h4>
           Esta pagina que estas buscando puede que ya no exista, cambio su
           nombre o no este disponible.
