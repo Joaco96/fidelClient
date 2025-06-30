@@ -62,12 +62,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     checkAuth();
   }, []);
 
-  const login = async (credentials: {
-    email: string;
-    password: string;
-  }): Promise<{ message: string; token: string } | null> => {
+  const login = async (
+    credentials: {
+      email: string;
+      password: string;
+    },
+    withResponseHandling = true,
+  ): Promise<{ message: string; token: string } | null> => {
     const data = await loginService(credentials);
-    handleApiResponse(data);
+    if (withResponseHandling) {
+      handleApiResponse(data);
+    }
     const authToken = data?.response?.token ?? null;
     setAuthToken(authToken);
     setToken(authToken);

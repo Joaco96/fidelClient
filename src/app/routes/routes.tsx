@@ -79,7 +79,7 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: ":user_id",
+            path: "edit",
             element: (
               <ProtectedRoute>
                 <ProfileDetail />
@@ -170,7 +170,7 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: "control",
+            path: "control/:redemption_id",
             element: (
               <ProtectedRoute minimumNeededRole={RoleIds.EMPLOYEE}>
                 <Control />
