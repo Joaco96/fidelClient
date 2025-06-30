@@ -8,6 +8,16 @@ export const userService = {
     return data;
   },
 
+  getUserById: async (id: string): Promise<ApiResponse<User[]>> => {
+    const { data } = await axiosClient.get("/users", { params: { id: id } });
+    return data;
+  },
+
+  getUserByDni: async (dni: string): Promise<ApiResponse<User[]>> => {
+    const { data } = await axiosClient.get("/users", { params: { dni: dni } });
+    return data;
+  },
+  
   getUserPoints: async (
     id: string
   ): Promise<ApiResponse<Pick<User, "points_balance">>> => {
@@ -39,22 +49,8 @@ export const userService = {
     return data;
   },
 
-  deleteUser: async (
-    id: string,
-  ): Promise<ApiResponse<[]>> => {
-    const { data } = await axiosClient.delete(
-      "/users/:id".replace(":id", id)
-    );
-    return data;
-  },
-
-  getUserById: async (id: string): Promise<ApiResponse<User[]>> => {
-    const { data } = await axiosClient.get("/users", { params: { id: id } });
-    return data;
-  },
-
-  getUserByDni: async (dni: string): Promise<ApiResponse<User[]>> => {
-    const { data } = await axiosClient.get("/users", { params: { dni: dni } });
+  deleteUser: async (id: string): Promise<ApiResponse<[]>> => {
+    const { data } = await axiosClient.delete("/users/:id".replace(":id", id));
     return data;
   },
 };

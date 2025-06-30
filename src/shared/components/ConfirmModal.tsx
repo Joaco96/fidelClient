@@ -1,9 +1,10 @@
-import React from "react";
+import { ReactNode } from "react";
 
 interface ConfirmModalProps {
   isOpen: boolean;
   title: string;
   message: string;
+  children: ReactNode;
   onCancel: () => void;
   onConfirm: () => void;
 }
@@ -12,6 +13,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
   isOpen,
   title,
   message,
+  children,
   onCancel,
   onConfirm,
 }) => {
@@ -22,15 +24,16 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
       <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg">
         <h2 className="text-lg text-gray-900 font-semibold mb-4">{title}</h2>
         <p className="text-gray-700 mb-6">{message}</p>
+        {children}
         <div className="flex justify-end space-x-3">
           <button
-            className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded"
+            className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg cursor-pointer"
             onClick={onCancel}
           >
             Cancelar
           </button>
           <button
-            className="px-4 py-2 bg-red-600 text-white hover:bg-red-700 rounded"
+            className="px-4 py-2 bg-[#FC6F2F] hover:bg-[#db4500] text-white rounded-lg cursor-pointer"
             onClick={onConfirm}
           >
             Confirmar
