@@ -27,12 +27,12 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#FFE9D1]">
       <div className="md:max-w-[75dvw] flex w-full m-auto items-center gap-10">
-        <div className="w-[55%] bg-[url(/login-bg.png)] bg-no-repeat bg-cover bg-center rounded-xl h-[70dvh]">
+        <div className="w-[55%] bg-[url(/login-bg.png)] bg-no-repeat bg-cover bg-center rounded-xl h-[70dvh] shadow">
           <div className="flex flex-col items-start justify-end h-full bg-linear-to-t from-[#2c2a2a8e] from-5% rounded-xl via-30% via-[#2c2a2a00] p-8">
             <h4 className="text-white font-epiBold text-3xl">
               Unite a los beneficios de Fidel
             </h4>
-            <h6 className="block font-medium text-white w-3/4 leading-5">
+            <h6 className="block text-white w-3/4 leading-5">
               Comenza a ganar puntos y beneficios exclusivos con cada compra en el centro comercial
             </h6>
           </div>
@@ -85,7 +85,7 @@ export default function Login() {
           </form>
           <div className="flex gap-2 pt-4">
             <h5 className="text-[#515838]">No tenes cuenta?</h5>
-            <Link to={"/register"} className="text-[#FC6F2F] underline">
+            <Link to={"/register"} className="text-[#FC6F2F] font-medium hover:underline">
               Registrate
             </Link>
           </div>
