@@ -63,7 +63,7 @@ export default function Register() {
           </div>
           <form onSubmit={handleSubmit} className="space-y-4 w-full">
             <div>
-              <label className="block my-2 font-medium text-[#515838]">
+              <label className="block my-1 font-medium text-[#515838]">
                 Nombre
               </label>
               <input
@@ -76,7 +76,7 @@ export default function Register() {
               />
             </div>
             <div>
-              <label className="block my-2 font-medium text-[#515838]">
+              <label className="block my-1 font-medium text-[#515838]">
                 Email
               </label>
               <input
@@ -89,7 +89,7 @@ export default function Register() {
               />
             </div>
             <div>
-              <label className="block my-2 font-medium text-[#515838]">
+              <label className="block my-1 font-medium text-[#515838]">
                 DNI
               </label>
               <input
@@ -102,7 +102,7 @@ export default function Register() {
               />
             </div>
             <div>
-              <label className="block my-2 font-medium text-[#515838]">
+              <label className="block my-1 font-medium text-[#515838]">
                 Contraseña
               </label>
               <input
@@ -118,7 +118,7 @@ export default function Register() {
               />
             </div>
             <div>
-              <label className="block my-2 font-medium text-[#515838]">
+              <label className="block my-1 font-medium text-[#515838]">
                 Confirmar Contraseña
               </label>
               <input

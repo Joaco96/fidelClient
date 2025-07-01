@@ -46,12 +46,12 @@ export default function Login() {
               Bienvenido
             </h2>
             <h4 className="block font-regular">
-              Inicia sesion para acceder a tu beneficios
+              Inicia sesión para acceder a tu beneficios
             </h4>
           </div>
           <form onSubmit={handleSubmit} className="space-y-4 w-full">
             <div>
-              <label className="block my-2 font-medium text-[#515838]">Email</label>
+              <label className="block my-1 font-medium text-[#515838]">Email</label>
               <input
                 type="email"
                 className="block w-full px-4 py-2 border rounded-md resize-none border-[#72727260]"
@@ -62,7 +62,7 @@ export default function Login() {
               />
             </div>
             <div className="">
-              <label className="block my-2 font-medium text-[#515838]">Contraseña</label>
+              <label className="block my-1 font-medium text-[#515838]">Contraseña</label>
               <input
                 type="password"
                 className="block w-full px-4 py-2 border rounded-md resize-none border-[#72727260]"
