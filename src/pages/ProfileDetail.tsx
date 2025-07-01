@@ -66,7 +66,6 @@ const ProfileDetail = () => {
         />
       ),
       onConfirm: async () => {
-        console.log("Password actual:", passwordRef.current);
         if (userData?.userId && userDni && userName && userEmail) {
           const loginFirstResult = await loginService({
             email: userEmail,
