@@ -106,7 +106,7 @@ const NewTicket = () => {
 
   return (
     <>
-      <div className="max-w-[70vw] flex flex-col w-full m-auto gap-8 pb-8 top-5 relative pt-3">
+      <div className="max-w-[70vw] flex flex-col w-full m-auto gap-8 top-5 relative pt-3">
         <div className="flex flex-col gap-8">
           <div className="flex justify-between items-center">
             <div className="flex items-center justify-center gap-6">
@@ -114,7 +114,7 @@ const NewTicket = () => {
                 <h3 className="text-3xl font-epiBold pt-2">
                   Seguimiento de tickets
                 </h3>
-                <p className="font-medium">
+                <p className="">
                   Buscá y agregá nuevos comprobantes con el DNI del usuario.
                 </p>
               </div>
@@ -129,21 +129,21 @@ const NewTicket = () => {
               <p className="text-3xl font-bold">
                 {NumberFormatter.format(cantTickets)}
               </p>
-              <p className="text-sm">Tickets</p>
+              <p className="text-sm text-gray-500">Tickets</p>
             </div>
             <div className="p-3 shadow-sm bg-white rounded-lg w-1/3">
               <h4 className="font-medium">Otorgados esta semana</h4>
               <p className="text-3xl font-bold">
                 {NumberFormatter.format(sumPuntos)}
               </p>
-              <p className="text-sm">Puntos</p>
+              <p className="text-sm text-gray-500">Puntos</p>
             </div>
             <div className="p-3 shadow-sm bg-white rounded-lg w-1/3">
               <h4 className="font-medium">Usuarios activos</h4>
               <p className="text-3xl font-bold">
                 {NumberFormatter.format(cantUsers)}
               </p>
-              <p className="text-sm">Usuarios</p>
+              <p className="text-sm text-gray-500">Usuarios</p>
             </div>
           </div>
         </div>

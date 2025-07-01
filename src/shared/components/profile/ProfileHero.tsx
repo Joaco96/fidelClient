@@ -17,7 +17,7 @@ const ProfileHero = ({ userData }: { userData: JwtPayload | null }) => {
           </div>
           <div className="flex flex-col justify-between items-start h-full">
             <h3 className="text-3xl font-epiBold capitalize text-[#515838]">{userName}</h3>
-            <p className="text-[#515838] font-medium pb-1">
+            <p className="text-[#515838] pb-1">
               Miembro desde{" "}
               {userData?.createdAt
                 ? formatDate(userData?.createdAt, ProfileOptions)

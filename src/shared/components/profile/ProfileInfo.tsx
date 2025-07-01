@@ -116,21 +116,21 @@ const ProfileInfo = ({
           <p className="text-3xl font-bold">
             ${NumberFormatter.format(totalSpent)}
           </p>
-          <p className="text-sm">En tiendas adheridas</p>
+          <p className="text-sm text-gray-500">En tiendas adheridas</p>
         </div>
         <div className="p-4 bg-white shadow-sm rounded-lg w-1/3">
           <h4 className="font-medium">Beneficios reclamados</h4>
           <p className="text-3xl font-bold">
             {redemptions?.length ? redemptions?.length : "0"}
           </p>
-          <p className="text-sm">Total de beneficios</p>
+          <p className="text-sm text-gray-500">Total de beneficios</p>
         </div>
         <div className="p-4 bg-white shadow-sm rounded-lg w-1/3">
           <h4 className="font-medium">Nivel obtenido</h4>
           <p className="text-3xl font-bold">
             {NumberFormatter.format(totalPoints)}
           </p>
-          <p className="text-sm">Puntos de la cuenta</p>
+          <p className="text-sm text-gray-500">Puntos de la cuenta</p>
         </div>
       </div>
       <div className="flex gap-6">
@@ -146,15 +146,15 @@ const ProfileInfo = ({
           </div>
           <div className="p-4">
             <h5 className="font-medium text-gray-500">ID</h5>
-            <p className="pb-2 text-lg text-black font-medium">
+            <p className="pb-2 text-lg text-black">
               {userData?.userId}
             </p>
             <h5 className="font-medium text-gray-500">Email</h5>
-            <p className="pb-2 text-lg text-black font-medium">
+            <p className="pb-2 text-lg text-black">
               {userData?.email}
             </p>
             <h5 className="font-medium text-gray-500">DNI</h5>
-            <p className="text-lg text-black font-medium">
+            <p className="text-lg text-black">
               {NumberFormatter.format(userData?.dni)}
             </p>
           </div>

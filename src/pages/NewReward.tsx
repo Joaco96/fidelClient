@@ -53,7 +53,7 @@ const NewReward = () => {
         <div className="flex items-center justify-center gap-6">
           <div className="flex flex-col justify-between items-start h-full gap-1">
             <h3 className="text-3xl font-epiBold pt-2">Nuevo beneficio</h3>
-            <p className="font-medium">Creá un nuevo beneficio para el programa de fidelización.</p>
+            <p className="">Creá un nuevo beneficio para el programa de fidelización.</p>
           </div>
         </div>
 
@@ -131,10 +131,10 @@ const NewReward = () => {
               <img
                 src="/mock-reward.png"
                 alt={rewardName ?? ""}
-                className="w-full h-full object-cover object-center group-hover:scale-[104%] transition-all duration-400"
+                className="w-full h-full object-cover object-center group-hover:scale-[103%] transition-all duration-400"
               />
             </div>
-            <div className="p-5 flex flex-col gap-2">
+            <div className="p-5 flex flex-col gap-1">
               <div className="flex justify-between items-center">
                 <h2 className="font-bold text-lg group-hover:text-[#FC6F2F] ">
                   {rewardName}
@@ -144,7 +144,7 @@ const NewReward = () => {
                 </h4>
               </div>
               <div>
-                <p className="tres-lineas font-medium text-gray-700">
+                <p className="tres-lineas text-gray-700 pb-2">
                   {rewardDescription}
                 </p>
               </div>

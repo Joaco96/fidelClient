@@ -63,7 +63,7 @@ const Users = () => {
         <div className="flex items-center justify-center gap-6">
           <div className="flex flex-col justify-between items-start h-full gap-1">
             <h3 className="text-3xl font-epiBold pt-2">Gestión de usuarios</h3>
-            <p className="font-medium">
+            <p className="">
               Visualizá y administrá los usuarios activos.
             </p>
           </div>
@@ -104,7 +104,7 @@ const Users = () => {
               return (
                 <>
                   <div
-                    className={`flex gap-4 items-center w-full mx-4 py-[20px] ${
+                    className={`flex gap-4 items-center w-full mx-2 py-[20px] ${
                       newFilteredUsers.length - 1 > index
                         ? "border-b-1 border-[#e9e9e9]"
                         : ""

@@ -15,7 +15,7 @@ const DashboardHero = () => {
           <h3 className="text-3xl font-epiBold text-[#515838]">
             Hola <span className="capitalize">{userName}</span>!
           </h3>
-          <p className="text-[#515838] font-medium text-lg">Explora los beneficios y canjea con tus puntos hoy.</p>
+          <p className="text-[#515838] text-lg">Explora los beneficios y canjea con tus puntos hoy.</p>
         </div>
         <UserPoints userData={userData} />
       </div>
@@ -26,7 +26,7 @@ const DashboardHero = () => {
               <h3 className="text-lg leading-6 font-medium text-[#515838]">
                 Agregá un nuevo comprobante de compra
               </h3>
-              <p className="text-gray-500 font-medium">
+              <p className="text-gray-500 ">
                 Ingresando el valor de la compra y el numero de comprobante.
               </p>
             </div>
@@ -43,7 +43,7 @@ const DashboardHero = () => {
               <h3 className="text-lg leading-6 font-medium text-[#515838]">
                 Agregá un nuevo beneficio para los usuarios
               </h3>
-              <p className="text-gray-500 font-medium">
+              <p className="text-gray-500">
                 Ingresando el valor de la compra y el numero de comprobante.
               </p>
             </div>

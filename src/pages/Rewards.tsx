@@ -53,14 +53,14 @@ const Rewards = () => {
                 <h3 className="text-3xl font-epiBold pt-2">
                   Gestión de beneficios
                 </h3>
-                <p className="font-medium">
+                <p className="">
                   Editá y administrá los beneficios en el catalogo.
                 </p>
               </>
             ) : (
               <>
                 <h3 className="text-3xl font-epiBold">Beneficios</h3>
-                <p className="font-medium">
+                <p className="">
                   Buscá y canjeá beneficios con tus puntos disponibles.
                 </p>
               </>

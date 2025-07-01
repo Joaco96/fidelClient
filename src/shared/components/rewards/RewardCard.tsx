@@ -45,10 +45,10 @@ const RewardCard = ({
           <img
             src="/mock-reward.png"
             alt={reward.name}
-            className="w-full h-full object-cover object-center group-hover:scale-[104%] transition-all duration-400"
+            className="w-full h-full object-cover object-center group-hover:scale-[103%] transition-all duration-400"
           />
         </div>
-        <div className="p-5 flex flex-col gap-2">
+        <div className="p-5 flex flex-col gap-1">
           <div className="flex justify-between items-center">
             <h2 className="font-bold text-lg group-hover:text-[#FC6F2F] ">
               {reward.name}
@@ -58,7 +58,7 @@ const RewardCard = ({
             </h4>
           </div>
           <div>
-            <p className="tres-lineas font-medium text-gray-700">{reward.description}</p>
+            <p className="tres-lineas text-gray-700 pb-2">{reward.description}</p>
           </div>
           <div className="flex justify-between items-center">
             <h6 className="font-medium text-gray-500">Shopping</h6>

@@ -50,7 +50,7 @@ const Dashboard = () => {
             className="w-1/2 p-4 shadow-sm bg-white hover:border-[#FC6F2F] border-1 border-white rounded-lg flex flex-col gap-1"
           >
             <h4 className="text-lg font-medium">Historial de puntos</h4>
-            <p className="text-gray-500 font-medium">Ver tus transacciones recientes</p>
+            <p className="text-gray-500">Ver tus transacciones recientes</p>
             <p className="text-black">
               Ultima actividad:
               <span> {formattedDate}</span>
@@ -61,7 +61,7 @@ const Dashboard = () => {
             className="w-1/2 p-4 shadow-sm bg-white hover:border-[#FC6F2F] border-1 border-white rounded-lg flex flex-col gap-1"
           >
             <h4 className="text-lg font-medium">Reclamar beneficios</h4>
-            <p className="text-gray-500 font-medium">Ver beneficios destacados</p>
+            <p className="text-gray-500">Ver beneficios destacados</p>
             <p className="text-black">
               <span>{rewardsQuantity ? rewardsQuantity : "-"} </span>nuevos
               disponibles

@@ -84,7 +84,7 @@ const RewardCheckout = () => {
       <Link to="/app/rewards" className="h-[45px] text-[#515838] font-medium hover:underline">
         Vovler a Beneficios
       </Link>
-      <div className="flex flex-col relative rounded-lg overflow-hidden mt-6 shadow-sm">
+      <div className="flex flex-col relative rounded-lg overflow-hidden mt-4 shadow-sm">
         {userData?.role ? (
           userData?.role >= RoleIds.ADMIN ? (
             <Link
@@ -223,16 +223,16 @@ const RewardCheckout = () => {
                   </button>
                 </div>
                 <div className="flex justify-between items-center pt-4 border-top border-t-1 border-[#e0e0e0]">
-                  <h6 className="font-medium text-black">Tu balance de puntos</h6>
-                  <p className="text-black font-medium">{NumberFormatter.format(balancePuntos)} pts</p>
+                  <h6 className="font-medium">Tu balance de puntos</h6>
+                  <p className="font-medium">{NumberFormatter.format(balancePuntos)} pts</p>
                 </div>
                 <div className="flex justify-between items-center">
-                  <h6 className="font-medium">Puntos requeridos</h6>
+                  <h6 className="">Puntos requeridos</h6>
                   <p className="text-[#FC6F2F] font-medium">{NumberFormatter.format(puntosRequeridos)} pts</p>
                 </div>
                 <div className="flex justify-between items-center pt-4 border-top border-t-1 border-[#e0e0e0]">
                   <h6 className="font-medium">Balance restante</h6>
-                  <p className="text-black font-medium">{NumberFormatter.format(balanceRestante)} pts</p>
+                  <p className="font-medium">{NumberFormatter.format(balanceRestante)} pts</p>
                 </div>
                 <button
                   disabled={!reward || !userPointsResponse || isPending}
